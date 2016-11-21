@@ -21,7 +21,6 @@ skip_before_action :authenticate_user!, only: :index
   def create
     @game = Game.new(game_params)
     @game.user = current_user
-    raise
     if @game.save!
       redirect_to game_path(@game)
     else
