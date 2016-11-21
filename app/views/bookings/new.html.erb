@@ -21,8 +21,11 @@
   </tr>
 </table>
 
+<%= simple_form_for [@game, @booking] do |f|%>
 
+<%= f.hidden_field :game_id, value: @game.id %>
 
+<% end %>
 
 <!--
   @user = User.first
