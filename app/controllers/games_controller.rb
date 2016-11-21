@@ -28,9 +28,21 @@ skip_before_action :authenticate_user!, only: :index
     end
   end
 
+  def show
+    @game = Game.find(params[:id])
+    @booking = Booking.new
+    @date = get_date
+
+  end
+
   private
+
 
   def game_params
     params.require(:game).permit(:name, :description, :address, :phone_number, :min_players, :max_players, :price_per_hour)
+  end
+
+  def get_date
+    Date.today
   end
 end

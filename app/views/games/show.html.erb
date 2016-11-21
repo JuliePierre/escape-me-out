@@ -1,0 +1,32 @@
+
+<div class="banner">
+  <h1><%= @game.name %></h1>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <p><%= @game.description %></p>
+      <p><%= @game.address %></p>
+      <p>Tel : <%= @game.phone_number %></p>
+      <p>Min players : <%= @game.min_players %> </p>
+      <p>Max players : <%= @game.max_players %> </p>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <h2>Book</h2>
+      <p>
+      <!-- DO NOT READ STUFF BELLOW ... HERE IS GOING TO BE THE BOOKING FORM -->
+        <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+
+          <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+        <% end %>
+      <!-- DO NOT READ STUFF ABOVE ... HERE IS GOING TO BE THE BOOKING FORM -->
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
