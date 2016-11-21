@@ -22,7 +22,15 @@
 
       <!-- delete user session -->
 
-      <%= link_to "log out", destroy_user_session_path, method: :delete %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+      <br>
+      <% if current_user %>
+          <%= link_to "User profile", user_path(current_user) %>
+        <% else %>
+          <%= link_to "Sign in", new_user_session_path %>
+      <% end %>
+      <br>
+      <%= link_to "Create a new game", new_game_path %>
     </div>
   </div>
 </div>
