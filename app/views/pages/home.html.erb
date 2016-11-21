@@ -1,4 +1,28 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="jumbotron">
+  <!-- Jumbotron -->
+  <h1>Pages#home</h1>
+  <p>Find me in app/views/pages/home.html.erb</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
 
-<%= link_to "log out", destroy_user_session_path, method: :delete %>
+        <!-- Insert Form for redirect to index based on search filters. If nill => index/all_games/ -->
+
+        <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+
+          <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- delete user session -->
+
+      <%= link_to "log out", destroy_user_session_path, method: :delete %>
+    </div>
+  </div>
+</div>
