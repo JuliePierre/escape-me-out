@@ -1,0 +1,12 @@
+<h1>List of games</h1>
+<div class="container">
+  <div class="row">
+    <% @games.each do |game| %>
+      <div class="col-sm-3 col-sm-offset-3">
+        <%= game.name %>
+        <%= game.min_players %>
+        <%= game.max_players %>
+      </div>
+    <% end %>
+  </div>
+</div>
