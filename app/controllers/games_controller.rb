@@ -1,7 +1,9 @@
 class GamesController < ApplicationController
 skip_before_action :authenticate_user!, only: :index
   def index
-    if params[:search] != ""
+    if params[:search] == nil && params[:players] == nil
+      @games = Game.all
+    elsif params[:search] != ""
       if params[:players] != ""
         @games = Game.where("min_players <= ? AND max_players >= ?", params[:players], params[:players]).where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
       else
@@ -12,6 +14,8 @@ skip_before_action :authenticate_user!, only: :index
     else
       @games = Game.all
    end
+   @date = params[:date]
+   # permettra de filter les escape games selon dispo à cette date là
   end
 
   def new
