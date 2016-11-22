@@ -13,7 +13,7 @@ before_action :find_game, only: [:show, :edit, :update]
         @games = Game.where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
       end
     elsif params[:nb_players] != ""
-      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:players])
+      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
     else
       @games = Game.all
    end
