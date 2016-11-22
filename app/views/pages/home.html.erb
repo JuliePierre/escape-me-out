@@ -3,26 +3,11 @@
     <h1>The only escape game search engine</h1>
     <p>Find the escape game that fits you</p>
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-          <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
-
-          <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
-        <% end %>
-  </div>
-</div>
-
-
-      <!-- delete user session -->
-
-      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-      <br>
-      <% if current_user %>
-          <%= link_to "User profile", user_path(current_user) %>
-        <% else %>
-          <%= link_to "Sign in", new_user_session_path %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+        <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
       <% end %>
       <br>
-      <%= link_to "Create a new game", new_game_path %>
-    </div>
+      <%= link_to "See all games", games_path, class: "btn btn-danger btn-lg" %>
   </div>
 </div>
