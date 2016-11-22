@@ -4,7 +4,7 @@ class BookingsController < ApplicationController
 
 
   def new
-    recover_params
+    formating_date
     @booking = Booking.new
   end
 
@@ -28,14 +28,9 @@ class BookingsController < ApplicationController
     params.permit(:nb_players, :time_select, :duration, :date )
   end
 
-  def recover_params
-    @user = current_user
-    @nb_players = params_from_show[:nb_players].to_i
-    @duration = params_from_show[:duration].to_i
-
+  def formating_date
     hour = params_from_show[:time_select]
     date = params_from_show[:date]
-
     @starts_at = DateTime.parse("#{date} #{hour}")
   end
 
