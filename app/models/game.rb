@@ -11,6 +11,8 @@ class Game < ApplicationRecord
   validates :max_players, presence: true, numericality: { only_integer: true }
   validates :price_per_hour, presence: true
 
+  has_attachment :photo
+
   def availabilities(date)
     # Returns an array of available start time for the given date
 
