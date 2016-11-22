@@ -10,15 +10,12 @@ class BookingsController < ApplicationController
 
   def update
     pending_booking = Booking.find(params[:booking_id])
-    if params[:action] == "accept"
-      # if pending_booking.game.user.id == current_user_id
-      pending_booking.accepted = true
-      pending_booking.save
-    elsif params[:action] == "decline"
-      pending_booking.accepted = false
-      pending_booking.save
+    if params[:do] == "accept"
+      pending_booking.update(accepted: true)
+    elsif params[:do] == "decline"
+      pending_booking.update(accepted: false)
     end
-    redirect_to user_path(@current_user)
+    redirect_to user_path(current_user)
   end
 
 

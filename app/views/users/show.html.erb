@@ -20,27 +20,21 @@
           <h3>Your pending bookings:</h3>
           <br>
           <br>
-          <!-- Accept/Decline -->
 
-          <% @games_host.each do |game| %>
-            <% pending_bookings = Booking.where(game_id: game.id) %>
-            <% pending_bookings.each do |pending_booking| %>
-              <% unless pending_booking == nil %>
-                <div class="product">
-                  <div class='product-body'>
-                    <h3><%= link_to game.name, game_path(game) %></h3>
-                      <% user = User.find(pending_booking.user_id) %>
-                      <% booking_time = pending_booking.starts_at %>
-                      <p><%= booking_time.strftime("On %A, %d %b %Y %l:%M %p") %>, by <%= link_to user.email, user_path(user) %></p>
-                  </div>
-                  <ul class ="list-inline buttons hidden-sm hidden-xs">
-                    <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(pending_booking.id, :booking_id => pending_booking.id), method: :patch %></li>
-                    <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(pending_booking.id, :booking_id => pending_booking.id), method: :patch %></li>
-                  </ul>
-                </div>
-              <% end %>
-            <% end %>
-          <% end %>
+          <!-- Accept/Decline -->
+        <% @pending_bookings.each do |booking| %>
+          <div class="product">
+            <div class='product-body'>
+              <h3><%= link_to booking.game.name, game_path(booking.game_id) %></h3>
+                <% booking_time = booking.starts_at %>
+              <p><%= booking_time.strftime("On %A, %d %b %Y %l:%M %p") %>, by <%= link_to booking.user.email, user_path(booking.user_id) %></p>
+            </div>
+            <ul class ="list-inline buttons hidden-sm hidden-xs">
+              <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(booking, :booking_id => booking.id, :do => "accept"), method: :patch %></li>
+              <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(booking, :booking_id => booking.id, :do => "decline"), method: :patch %></li>
+            </ul>
+          </div>
+        <% end %>
           <br>
           <br>
 
@@ -48,25 +42,25 @@
           <h3>Your games</h3>
           <br>
           <br>
-          <% @games_host.each do |game| %>
-            <div class="product">
-              <div class='product-body'>
-                <h3><%= link_to game.name, game_path(game) %></h3>
-                <% bookings_host = Booking.where(game_id: game.id) %>
-                <% bookings_host.each do |booking_host| %>
-                <% booking_time_host = booking_host.starts_at %>
-                  <% if booking_host.accepted == true %>
-                    <p>Accepted Bookings: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                  <% end %>
+        <% @games_host.each do |game| %>
+          <div class="product">
+            <div class='product-body'>
+              <h3><%= link_to game.name, game_path(game) %></h3>
+              <% bookings_host = Booking.where(game_id: game.id) %>
+              <% bookings_host.each do |booking_host| %>
+              <% booking_time_host = booking_host.starts_at %>
+                <% if booking_host.accepted == true %>
+                  <p>Accepted Bookings: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
                 <% end %>
-              </div>
-              <ul class="list-inline product-controls hidden-sm hidden-xs">
-                <li><a href=""><i class="fa fa-heart"></i></a></li>
-                <li><a href=""><i class="fa fa-share"></i></a></li>
-                <li><a href=""><i class="fa fa-star"></i></a></li>
-              </ul>
+              <% end %>
             </div>
-          <% end %>
+            <ul class="list-inline product-controls hidden-sm hidden-xs">
+              <li><a href=""><i class="fa fa-heart"></i></a></li>
+              <li><a href=""><i class="fa fa-share"></i></a></li>
+              <li><a href=""><i class="fa fa-star"></i></a></li>
+            </ul>
+          </div>
+        <% end %>
 
         <% else %>
 
