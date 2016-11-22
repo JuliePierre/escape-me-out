@@ -4,24 +4,12 @@
     <p>Find the escape game that fits you</p>
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
           <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+          <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
 
           <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
         <% end %>
   </div>
 </div>
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-
-        <!-- Insert Form for redirect to index based on search filters. If nill => index/all_games/ -->
-
-
-      </div>
-    </div>
-  </div>
 
 
       <!-- delete user session -->
