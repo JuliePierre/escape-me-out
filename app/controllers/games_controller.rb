@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-skip_before_action :authenticate_user!, only: :index
+skip_before_action :authenticate_user!, only: [:index, :show]
   def index
     if params[:search] == nil && params[:players] == nil
       @games = Game.all
@@ -36,6 +36,7 @@ skip_before_action :authenticate_user!, only: :index
     @game = Game.find(params[:id])
     @booking = Booking.new
     @date = get_date
+    @availabilities = @game.availabilities(@date).map { |x| x.strftime("%H:%M") }
 
   end
 
@@ -47,6 +48,7 @@ skip_before_action :authenticate_user!, only: :index
   end
 
   def get_date
-    Date.today
+    # To be modified to parse params[:date]
+    Date.parse("2016-11-21")
   end
 end
