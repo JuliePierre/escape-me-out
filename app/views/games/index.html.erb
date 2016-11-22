@@ -1,25 +1,30 @@
-<h1>Récapitulatif de la recherche</h1>
-
-<%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
-          <%= date_field_tag :date, params[:date] %>
-
-          <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
-        <% end %>
-
-<p>Date choisie :</p>
-<%= @date %>
-
-<h1>List of games</h1>
 <div class="container">
+  <div class="row text-center">
+    <h1>Récapitulatif de la recherche</h1>
+  </div>
   <div class="row">
-    <% @games.each do |game| %>
-      <div class="col-sm-3 col-sm-offset-3">
-        <%= game.name %>
-        <%= game.min_players %>
-        <%= game.max_players %>
-      </div>
+
+    <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+      <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+      <%= date_field_tag :date, params[:date] %>
+    <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
     <% end %>
+  </div>
+
+  <p>Date choisie :</p>
+  <%= @date %>
+
+  <h1>List of games</h1>
+  <div class="container">
+    <div class="row">
+      <% @games.each do |game| %>
+        <div class="col-sm-3 col-sm-offset-3">
+          <%= game.name %>
+          <%= game.min_players %>
+          <%= game.max_players %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
