@@ -1,21 +1,13 @@
-<div class="jumbotron">
-  <!-- Jumbotron -->
-  <h1>Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-
-        <!-- Insert Form for redirect to index based on search filters. If nill => index/all_games/ -->
-
-        <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= cl_image_path('closed_room.jpg') %>);">
+  <div class="banner-content">
+    <h1>The only escape game search engine</h1>
+    <p>Find the escape game that fits you</p>
+    <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
           <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+          <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
 
           <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
         <% end %>
-      </div>
-    </div>
   </div>
 </div>
 
