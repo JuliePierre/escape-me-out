@@ -15,14 +15,22 @@
     <div class="col-xs-12 col-sm-6">
       <h2>Book</h2>
       <p>
-      <!-- DO NOT READ STUFF BELLOW ... HERE IS GOING TO BE THE BOOKING FORM -->
-        <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-          <%= text_field_tag :players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+        <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
+          <%#= text_field_tag :time, params[:time], placeholder: "Select time", class: "form-control border-radius" %>
+          <div class="form-group">
+            <%= text_field_tag :nb_players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+          </div>
+          <div class="form-group">
+            <%= label_tag "time-select", "Available sessions" %>
+            <%= select_tag "time-select", options_for_select(@availabilities), class: "form-control border-radius" %>
+          </div>
+          <div class="form-group">
+            <%= label_tag "duration" %>
+            <%= select_tag "duration", options_for_select(["1 hour", "2 hours"]), class: "form-control border-radius" %>
+          </div>
 
-          <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+          <button type="submit" class="btn btn-danger">Book</button>
         <% end %>
-      <!-- DO NOT READ STUFF ABOVE ... HERE IS GOING TO BE THE BOOKING FORM -->
       </p>
     </div>
   </div>
