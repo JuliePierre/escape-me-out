@@ -11,6 +11,8 @@ class Game < ApplicationRecord
   validates :max_players, presence: true, numericality: { only_integer: true }
   validates :price_per_hour, presence: true
 
+  has_attachment :photo
+
   def availabilities(my_date)
     # Returns an array of available start time for the given date
     bookings_for_this_game_and_date = Booking.where('game_id = ? AND DATE(starts_at) = ?', id, my_date)

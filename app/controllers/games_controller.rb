@@ -41,6 +41,9 @@ skip_before_action :authenticate_user!, only: :index
 
   private
 
+  def product_params
+    params.require(:product).permit(:name, :description, :photo)
+  end
 
   def game_params
     params.require(:game).permit(:name, :description, :address, :phone_number, :min_players, :max_players, :price_per_hour)
