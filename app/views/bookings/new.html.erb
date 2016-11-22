@@ -1,48 +1,47 @@
-<h2>You are about to complete your booking</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <h2>You are about to complete your booking</h2>
 
-<p>Please review the folowing informations</p>
+        <p>Please review the folowing informations</p>
 
-<h3>Summary :</h3>
+        <h3>Summary :</h3>
 
-<table class="table text-center">
-  <tr>
-    <th>User email</th>
-    <th>Game</th>
-    <th>Number of Players</th>
-    <td>Date</td>
-    <td>Time</td>
-    <td>Duration</td>
-  </tr>
-  <tr>
-    <th><%= @user.email  %></th>
-    <td><%= @game.name  %></td>
-    <td><%= @nb_players  %></td>
-    <td><%= @starts_at.strftime('%e %b %Y') %></td>
-    <td><%= @starts_at.strftime('%H:%M') %></td>
-    <td><%= @duration %> h</td>
-  </tr>
-</table>
+        <table class="table text-center">
+          <tr>
+            <th>User email</th>
+            <th>Game</th>
+            <th>Number of Players</th>
+            <td>Date</td>
+            <td>Time</td>
+            <td>Duration</td>
+          </tr>
+          <tr>
+            <th><%= @user.email  %></th>
+            <td><%= @game.name  %></td>
+            <td><%= @nb_players  %></td>
+            <td><%= @starts_at.strftime('%e %b %Y') %></td>
+            <td><%= @starts_at.strftime('%H:%M') %></td>
+            <td><%= @duration %> h</td>
+          </tr>
+        </table>
 
-<h3> Payment informations </h3>
+        <h3> Payment informations </h3>
 
-<p>The price for your purchase is : .... </p>
+        <p>The price for your purchase is : <strong><%= @game.price_per_hour * @duration %> euros</strong> </p>
 
-<hr>
+        <hr>
 
-<%= simple_form_for [@game, @booking] do |f|%>
+        <%= simple_form_for [@game, @booking] do |f|%>
 
-  <%= f.hidden_field :game_id, value: @game.id %>
-  <%= f.hidden_field :user_id, value: @user.id %>
-  <%= f.hidden_field :nb_players, value: @nb_players %>
-  <%= f.hidden_field :starts_at, value: @starts_at %>
-  <%= f.hidden_field :duration, value: @duration %>
-  <%= f.submit "confirm and pay", class: 'btn btn-primary' %>
+          <%= f.hidden_field :game_id, value: @game.id %>
+          <%= f.hidden_field :user_id, value: @user.id %>
+          <%= f.hidden_field :nb_players, value: @nb_players %>
+          <%= f.hidden_field :starts_at, value: @starts_at %>
+          <%= f.hidden_field :duration, value: @duration %>
+          <%= f.submit "confirm and pay", class: 'btn btn-primary' %>
 
-<% end %>
-
-<!--
-  @user = User.first
-  @game = Game.first
-  @nb_players = 5
-  @starts_at = Time.now
-  @duration = 1 -->
+        <% end %>
+      </div>
+  </div>
+</div>
