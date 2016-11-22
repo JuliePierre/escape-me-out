@@ -24,13 +24,9 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:game_id, :user_id, :nb_players, :starts_at, :duration)
   end
 
-  def params_from_show
-    params.permit(:nb_players, :time_select, :duration, :date )
-  end
-
   def formating_date
-    hour = params_from_show[:time_select]
-    date = params_from_show[:date]
+    hour = params[:time_select]
+    date = params[:date]
     @starts_at = DateTime.parse("#{date} #{hour}")
   end
 
