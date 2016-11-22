@@ -8,6 +8,18 @@ class BookingsController < ApplicationController
     @booking = Booking.new
   end
 
+  def update
+    pending_booking = Booking.find(params[:booking_id])
+    if params[:action] == "accept"
+      # if pending_booking.game.user.id == current_user_id
+      pending_booking.accepted = true
+      pending_booking.save
+    elsif params[:action] == "decline"
+      pending_booking.accepted = false
+      pending_booking.save
+    end
+    redirect_to user_path(@current_user)
+  end
 
 
   private
