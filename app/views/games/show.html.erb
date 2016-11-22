@@ -1,5 +1,5 @@
 
-<div class="banner">
+<div>
   <h1><%= @game.name %></h1>
 </div>
 
@@ -18,17 +18,21 @@
         <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
           <%#= text_field_tag :time, params[:time], placeholder: "Select time", class: "form-control border-radius" %>
           <div class="form-group">
-            <%= text_field_tag :nb_players, params[:players], placeholder: "Number of players", class: "form-control border-radius" %>
+            <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
           </div>
           <div class="form-group">
             <%= label_tag "time-select", "Available sessions" %>
             <%= select_tag "time-select", options_for_select(@availabilities), class: "form-control border-radius" %>
           </div>
           <div class="form-group">
-            <%= label_tag "duration" %>
-            <%= select_tag "duration", options_for_select(["1 hour", "2 hours"]), class: "form-control border-radius" %>
+            <%= label_tag "duration", "Duration (hours)" %>
+            <%= select_tag "duration", options_for_select(["1"]), class: "form-control border-radius" %>
           </div>
+          <% params[:date] = "2016-11-21" %>
+          <!-- TEST -->
+          <%#= hidden_field(:date, :date, :value => params[:date]) %>
 
+          <input type="hidden" name="date" value="<%= params[:date] %>">
           <button type="submit" class="btn btn-danger">Book</button>
         <% end %>
       </p>
