@@ -29,9 +29,6 @@
             <%= select_tag "duration", options_for_select(["1"]), class: "form-control border-radius" %>
           </div>
           <% params[:date] = "2016-11-21" %>
-          <!-- TEST -->
-          <%#= hidden_field(:date, :date, :value => params[:date]) %>
-
           <input type="hidden" name="date" value="<%= params[:date] %>">
           <button type="submit" class="btn btn-danger">Book</button>
         <% end %>
