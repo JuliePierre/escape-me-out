@@ -4,16 +4,16 @@ skip_before_action :authenticate_user!, only: [:index, :show]
 before_action :find_game, only: [:show, :edit, :update]
 
   def index
-    if params[:search] == nil && params[:players] == nil
+    if params[:search] == nil && params[:nb_players] == nil
       @games = Game.all
     elsif params[:search] != ""
-      if params[:players] != ""
-        @games = Game.where("min_players <= ? AND max_players >= ?", params[:players], params[:players]).where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
+      if params[:nb_players] != ""
+        @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players]).where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
       else
         @games = Game.where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
       end
-    elsif params[:players] != ""
-      @games = Game.where("min_players <= ? AND max_players >= ?", params[:players], params[:players])
+    elsif params[:nb_players] != ""
+      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:players])
     else
       @games = Game.all
    end
