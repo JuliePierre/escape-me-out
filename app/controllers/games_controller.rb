@@ -39,6 +39,18 @@ skip_before_action :authenticate_user!, only: :index
 
   end
 
+  def edit
+    @game = Game.find(params[:id])
+  end
+
+  def update
+    if @game.update(game_params)
+      redirect_to game_path(@game)
+    else
+      render :new
+    end
+  end
+
   private
 
 
