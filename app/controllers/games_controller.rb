@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
 skip_before_action :authenticate_user!, only: :index
+before_action :find_game, only: [:show, :edit, :update]
   def index
     if params[:search] == nil && params[:players] == nil
       @games = Game.all
@@ -33,13 +34,26 @@ skip_before_action :authenticate_user!, only: :index
   end
 
   def show
-    @game = Game.find(params[:id])
     @booking = Booking.new
     @date = get_date
+  end
 
+  def edit
+  end
+
+  def update
+    if @game.update(game_params)
+      redirect_to game_path(@game)
+    else
+      render :new
+    end
   end
 
   private
+
+  def find_game
+    @game = Game.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:name, :description, :photo)
