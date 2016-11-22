@@ -25,7 +25,7 @@ class BookingsController < ApplicationController
   end
 
   def recover_params
-    @user = User.first
+    @user = current_user
     @nb_players = 5
     @starts_at = Time.now
     @duration = 1
