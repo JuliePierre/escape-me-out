@@ -30,7 +30,7 @@ before_action :find_game, only: [:show, :edit, :update]
   def create
     @game = Game.new(game_params)
     @game.user = current_user
-    if @game.save!
+    if @game.save
       redirect_to game_path(@game)
     else
       render :new
@@ -50,7 +50,7 @@ before_action :find_game, only: [:show, :edit, :update]
     if @game.update(game_params)
       redirect_to game_path(@game)
     else
-      render :new
+      render :edit
     end
   end
 
