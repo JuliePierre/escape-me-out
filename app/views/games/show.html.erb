@@ -19,12 +19,6 @@
       <div class="index-form-container">
         <h2>Book</h2>
         <p>
-
-
-          <% params[:date] = "2016-11-21" %>
-          <% params[:nb_players] = 3 %>
-
-
           <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
             <div class="form-group">
               <%= label_tag "date", "Booking date" %>
