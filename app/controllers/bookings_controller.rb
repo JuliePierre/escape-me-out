@@ -24,11 +24,19 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:game_id, :user_id, :nb_players, :starts_at, :duration)
   end
 
+  def params_from_show
+    params.permit(:nb_players, :time_select, :duration, :date )
+  end
+
   def recover_params
     @user = current_user
-    @nb_players = 5
-    @starts_at = Time.now
-    @duration = 1
+    @nb_players = params_from_show[:nb_players].to_i
+    @duration = params_from_show[:duration].to_i
 
+    hour = params_from_show[:time_select]
+    date = params_from_show[:date]
+
+    @starts_at = DateTime.parse("#{date} #{hour}")
   end
+
 end

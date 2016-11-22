@@ -21,8 +21,8 @@
             <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
           </div>
           <div class="form-group">
-            <%= label_tag "time-select", "Available sessions" %>
-            <%= select_tag "time-select", options_for_select(@availabilities), class: "form-control border-radius" %>
+            <%= label_tag "time_select", "Available sessions" %>
+            <%= select_tag "time_select", options_for_select(@availabilities), class: "form-control border-radius" %>
           </div>
           <div class="form-group">
             <%= label_tag "duration", "Duration (hours)" %>
