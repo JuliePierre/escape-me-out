@@ -4,26 +4,39 @@
 
 <h3>Summary :</h3>
 
-<table class="table table-hover">
+<table class="table text-center">
   <tr>
     <th>User email</th>
     <th>Game</th>
     <th>Number of Players</th>
-    <td>Date and time</td>
+    <td>Date</td>
+    <td>Time</td>
     <td>Duration</td>
   </tr>
   <tr>
     <th><%= @user.email  %></th>
     <td><%= @game.name  %></td>
     <td><%= @nb_players  %></td>
-    <td><%= @starts_at.strftime('%e %b %Y %H:%M:%S%p') %></td>
+    <td><%= @starts_at.strftime('%e %b %Y') %></td>
+    <td><%= @starts_at.strftime('%H:%M') %></td>
     <td><%= @duration %> h</td>
   </tr>
 </table>
 
+<h3> Payment informations </h3>
+
+<p>The price for your purchase is : .... </p>
+
+<hr>
+
 <%= simple_form_for [@game, @booking] do |f|%>
 
-<%= f.hidden_field :game_id, value: @game.id %>
+  <%= f.hidden_field :game_id, value: @game.id %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+  <%= f.hidden_field :nb_players, value: @nb_players %>
+  <%= f.hidden_field :starts_at, value: @starts_at %>
+  <%= f.hidden_field :duration, value: @duration %>
+  <%= f.submit "confirm and pay", class: 'btn btn-primary' %>
 
 <% end %>
 
