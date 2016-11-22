@@ -1,23 +1,11 @@
-<% if @game.user = current_user %>
 
-  <h1>Edit <%= @game.name %></h1>
+<h1>Edit <%= @game.name %></h1>
+<% if @game.user == current_user %>
 
-  <%= simple_form_for(@game) do |f| %>
-    <%= f.error_notification %>
-
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :address %>
-    <%= f.input :phone_number %>
-    <%= f.input :min_players %>
-    <%= f.input :max_players %>
-    <%= f.input :price_per_hour %>
-
-    <%= f.button :submit %>
-  <% end %>
+  <%= render 'form'  %>
 
 <% else %>
 
-  <h2>You are not allowed to edit someone else game</h2>
+  <h3>You are not allowed to edit someone else game</h3>
 
 <% end %>
