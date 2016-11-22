@@ -50,7 +50,9 @@
               <% bookings_host.each do |booking_host| %>
               <% booking_time_host = booking_host.starts_at %>
                 <% if booking_host.accepted == true %>
-                  <p>Accepted Bookings: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Accepted Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                <% elsif booking_host.accepted == false %>
+                  <p>Declined Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
                 <% end %>
               <% end %>
             </div>

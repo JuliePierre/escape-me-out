@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     bookings.each { |book| @games_customer << Game.find(book.game_id) }
     @games_host = current_user.games
 
-    @pending_bookings = Booking.joins(:game).where(games: { user_id: current_user.id })
+    @host_bookings = Booking.joins(:game).where(games: { user_id: current_user.id })
+    @pending_bookings = @host_bookings.where(accepted: nil)
   end
 
   def edit
