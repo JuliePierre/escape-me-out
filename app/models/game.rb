@@ -4,6 +4,9 @@ class Game < ApplicationRecord
   MIN_GAME_DURATION = 1 #hour(s)
   MAX_GAME_DURATION = 5 #hour(s)
 
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
+
   belongs_to :user
   has_many :bookings
 

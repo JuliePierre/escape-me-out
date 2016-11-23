@@ -6,3 +6,6 @@
 //= require attachinary
 //= require tabs_user
 //= require_tree .
+//= require underscore
+//= require gmaps/google
+

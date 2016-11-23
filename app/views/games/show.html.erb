@@ -31,12 +31,12 @@
             </div>
             <div class="form-group">
               <%= label_tag "time_select", "Available sessions" %>
-              <%= select_tag "time_select", options_for_select(@availabilities), class: "form-control border-radius" %>
+              <%= select_tag "time_select", options_for_select(@availabilities, params[:time_select]), class: "form-control border-radius" %>
             </div>
             <div class="form-group">
               <%= label_tag "duration" %>
               <% my_options_for_select_duration = (1..3).to_a.map { |x| [x.to_s + " hour(s)", x] } %>
-              <%= select_tag "duration", options_for_select(my_options_for_select_duration), class: "form-control border-radius" %>
+              <%= select_tag "duration", options_for_select(my_options_for_select_duration, params[:duration]), class: "form-control border-radius" %>
             </div>
             <button type="submit" class="btn btn-danger">Book</button>
           <% end %>
@@ -45,6 +45,7 @@
     </div>
   </div>
 </div>
+
 
 
 
