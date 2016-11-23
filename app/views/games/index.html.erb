@@ -13,7 +13,7 @@
         <% end %>
 
           <div class="col-xs-6 col-sm-6">
-            <div class="card" style="background-image: url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+            <div class="card" style="background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
               <div class="card-description">
                 <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
                 <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
