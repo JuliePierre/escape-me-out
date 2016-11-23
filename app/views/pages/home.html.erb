@@ -1,13 +1,18 @@
 <div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url(<%= cl_image_path('closed_room.jpg') %>);">
   <div class="banner-content">
-    <h1>The only escape game search engine</h1>
+    <h1>The only escape game booking platform</h1>
     <p>Find the escape game that fits you</p>
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
         <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
         <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
-        <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+        <div class="row"><%= date_field_tag :date, Time.now.strftime('%Y-%m-%d'), placeholder: "Choose a date", class: "form-control border-radius" %></div>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i>  SEARCH</button>
       <% end %>
       <br>
+      <br>
+      <br>
+      <br>
+      <p>Don't know what you're looking for ?</p>
       <%= link_to "See all games", games_path, class: "btn btn-danger btn-lg" %>
   </div>
 </div>
