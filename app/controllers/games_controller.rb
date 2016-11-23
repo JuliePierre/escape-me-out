@@ -18,7 +18,7 @@ before_action :find_game, only: [:show, :edit, :update]
     else
       @games = Game.all
     end
-
+    @games = @games.where.not(latitude: nil)
     @games_coordinates = @games.map do |game|
       { lat: game.latitude, lng: game.longitude }
     end
