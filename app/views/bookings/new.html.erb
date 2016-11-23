@@ -39,11 +39,10 @@
 
           <%= f.hidden_field :game_id, value: @game.id %>
           <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :nb_players, value: @nb_players %>
+          <%= f.hidden_field :nb_players, value: params[:nb_players].to_i %>
           <%= f.hidden_field :starts_at, value: @starts_at %>
-          <%= f.hidden_field :duration, value: @duration %>
-          <%= f.submit "confirm and pay", class: 'btn btn-danger' %>
-
+          <%= f.hidden_field :duration, value: params[:duration].to_i %>
+          <%= f.submit "Confirm and pay", class: 'btn btn-danger' %>
         <% end %>
       </div>
   </div>
