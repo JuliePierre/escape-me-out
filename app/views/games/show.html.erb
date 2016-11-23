@@ -1,50 +1,83 @@
-
-<div>
-  <h1><%= @game.name %></h1>
-  <% if @game.photo? %>
-    <%= cl_image_tag @game.photo.path, width: 200, height: 300, crop: :fill %>
-  <% end %>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <p><%= @game.description %></p>
-      <p><%= @game.address %></p>
-      <p>Tel : <%= @game.phone_number %></p>
-      <p>Min players : <%= @game.min_players %> </p>
-      <p>Max players : <%= @game.max_players %> </p>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <div class="index-form-container">
-        <h2>Book</h2>
-        <p>
-          <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
-            <div class="form-group">
-              <%= label_tag "date", "Booking date" %>
-              <%= date_field_tag :date, params[:date], value: params[:date], placeholder: "Choose a date", class: "form-control border-radius" %>
-            </div>
-            <div class="form-group">
-              <%= label_tag "nb_players", "Number of players" %>
-              <% my_options_for_select_nb_players = (@game.min_players..@game.max_players).to_a.map { |x| [x.to_s + " players", x] } %>
-              <%= select_tag "nb_players", options_for_select(my_options_for_select_nb_players, params[:nb_players]), class: "form-control border-radius" %>
-            </div>
-            <div class="form-group">
-              <%= label_tag "time_select", "Available sessions" %>
-              <%= select_tag "time_select", options_for_select(@availabilities), class: "form-control border-radius" %>
-            </div>
-            <div class="form-group">
-              <%= label_tag "duration" %>
-              <% my_options_for_select_duration = (1..3).to_a.map { |x| [x.to_s + " hour(s)", x] } %>
-              <%= select_tag "duration", options_for_select(my_options_for_select_duration), class: "form-control border-radius" %>
-            </div>
-            <button type="submit" class="btn btn-danger">Book</button>
+<div class="container padded">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8">
+        <!-- <div class="row"> -->
+          <% if @game.photo? %>
+            <% game_img_url = cl_image_path @game.photo.path, width: 680, height: 300, crop: :fill %>
+          <% else %>
+            <% game_img_url = cl_image_path "closed_room.jpg", width: 680, height: 300, crop: :fill %>
           <% end %>
-        </p>
+          <div id="game-show-img" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= game_img_url %>');">
+            <h1><%= @game.name %></h1>
+          </div>
+        <!-- </div> -->
+        <!-- <div class="row"> -->
+          <div class="text-justify"><%= @game.description %></div>
+          <div id="game-address-and-owner">
+            <div><p><%= @game.address %><br>Tel : <%= @game.phone_number %></p></div>
+            <div><p>Number of players : from <%= @game.min_players %> to <%= @game.max_players %><br>Price per hour : <%= @game.price_per_hour %> €</p></div>
+            <p>Hosted by : <%= link_to @game.user.first_name == "" ? @game.user.email : @game.user.email, user_path(@game.user) %></p>
+          </div>
+        <!-- </div> -->
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="index-form-container">
+          <% if !current_user.host_game?(@game) %>
+            <h2>Book this escape game</h2>
+            <p>
+              <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
+                <div class="form-group">
+                  <%= label_tag "date", "Booking date" %>
+                  <%= date_field_tag :date, params[:date], value: params[:date], placeholder: "Choose a date", class: "form-control border-radius" %>
+                </div>
+                <div class="form-group">
+                  <%= label_tag "nb_players", "Number of players" %>
+                  <% my_options_for_select_nb_players = (@game.min_players..@game.max_players).to_a.map { |x| [x.to_s + " players", x] } %>
+                  <%= select_tag "nb_players", options_for_select(my_options_for_select_nb_players, params[:nb_players]), class: "form-control border-radius" %>
+                </div>
+                <div class="form-group">
+                  <%= label_tag "time_select", "Available sessions" %>
+                  <%= select_tag "time_select", options_for_select(@availabilities), class: "form-control border-radius" %>
+                </div>
+                <div class="form-group">
+                  <%= label_tag "duration" %>
+                  <% my_options_for_select_duration = (1..3).to_a.map { |x| [x.to_s + " hour(s)", x] } %>
+                  <%= select_tag "duration", options_for_select(my_options_for_select_duration), class: "form-control border-radius" %>
+                </div>
+                <button type="submit" class="btn btn-danger">Book</button>
+              <% end %>
+            </p>
+          <% else #Current user hosts this game ;-)%>
+            <h2>You host this game</h2>
+            <h3>Bookings stats :</h3>
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <td>Total</td>
+                  <td>Accepted</td>
+                  <td>Declined</td>
+                  <td>Pending</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= @game.bookings.count %></td>
+                  <td><%= @game.bookings.where('accepted = true').count %></td>
+                  <td><%= @game.bookings.where('accepted = false').count %></td>
+                  <td><%= @game.bookings.where('accepted = null').count %></td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="game-show-btn">
+              <div id="game-show-edit-btn">
+                <%= link_to "Edit Game", edit_game_path(@game), class: "btn btn-danger" %>
+              </div>
+              <div id="game-show-delete-btn">
+                <%= link_to "Delete Game", game_path(@game), method: :delete, class: "btn btn-danger" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
 </div>
-
-
-
