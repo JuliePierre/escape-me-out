@@ -9,7 +9,6 @@ class UsersController < ApplicationController
 
     @host_bookings = Booking.joins(:game).where(games: { user_id: @user.id })
     @pending_bookings = @host_bookings.where(accepted: nil)
-    raise
   end
 
   def edit

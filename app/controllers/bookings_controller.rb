@@ -17,7 +17,7 @@ class BookingsController < ApplicationController
       pending_booking.update(accepted: false)
       pending_booking = nil
     end
-    redirect_to user_path(current_user)
+    redirect_to user_path(params[:id])
   end
 
   def create

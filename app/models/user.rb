@@ -9,4 +9,8 @@ class User < ApplicationRecord
   def host?
     Game.find_by(user_id: id)
   end
+
+  def player?
+    Booking.find_by(user_id: id)
+  end
 end
