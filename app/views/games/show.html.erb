@@ -3,7 +3,7 @@
   <h1><%= @game.name %></h1>
   <% if @game.photo? %>
     <%= cl_image_tag @game.photo.path, width: 200, height: 300, crop: :fill %>
-<% end %>
+  <% end %>
 </div>
 
 <div class="container">
