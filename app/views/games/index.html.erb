@@ -13,7 +13,7 @@
         <% end %>
 
           <div class="col-xs-6 col-sm-6">
-            <div class="card" style="background-image: url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+            <div class="card" style="background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
               <div class="card-description">
                 <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
                 <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
@@ -33,7 +33,8 @@
         <%= form_tag(games_path, :method => "get", class: "search-form") do %>
           <div class="row"><%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
           <div class="row"><%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %></div>
-          <div class="row"><%= date_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius" %></div>
+          <% date_value = params[:date] || Time.now.strftime('%Y-%m-%d') %>
+          <div class="row"><%= date_field_tag :date, date_value, placeholder: "Choose a date", class: "form-control border-radius" %></div>
           <div class="row"><button type="submit" class="btn btn-danger">Update search</button></div>
         <% end %>
       </div>
