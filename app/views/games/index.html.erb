@@ -1,12 +1,35 @@
-<h1>List of games</h1>
-<div class="container">
+<div class="container padded">
+
   <div class="row">
-    <% @games.each do |game| %>
-      <div class="col-sm-3 col-sm-offset-3">
-        <%= game.name %>
-        <%= game.min_players %>
-        <%= game.max_players %>
+
+    <div class="col-xs-8 col-sm-8">
+          <div class="row">
+            <% @games.each do |game| %>
+
+              <div class="col-xs-6 col-sm-6">
+                <div class="card" style="background-image: url('http://lorempixel.com/800/600')">
+                  <div class="card-description">
+                    <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
+                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
+                  </div>
+                  <span class="card-price"><%= game.price_per_hour %>€</span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 index-form-container">
+        <div class="row"><h1>Your choice</h1></div>
+        <%= form_tag(games_path, :method => "get", class: "search-form") do %>
+          <div class="row"><%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
+          <div class="row"><%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %></div>
+          <div class="row"><%= date_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius" %></div>
+          <div class="row"><button type="submit" class="btn btn-danger">Update search</button></div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+
   </div>
 </div>
+

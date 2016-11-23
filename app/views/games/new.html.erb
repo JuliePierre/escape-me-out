@@ -1,15 +1,9 @@
-<h1>Create a new game</h1>
+<div class="container form-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Create a new game</h1>
 
-<%= simple_form_for(@game) do |f| %>
-  <%= f.error_notification %>
-
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :address %>
-  <%= f.input :phone_number %>
-  <%= f.input :min_players %>
-  <%= f.input :max_players %>
-  <%= f.input :price_per_hour %>
-
-  <%= f.button :submit %>
-<% end %>
+      <%= render 'form' %>
+      </div>
+  </div>
+</div>

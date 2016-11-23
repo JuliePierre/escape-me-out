@@ -1,0 +1,16 @@
+<div class="container form-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Edit <%= @game.name %></h1>
+      <% if @game.user == current_user %>
+
+        <%= render 'form'  %>
+
+      <% else %>
+
+        <h3>You are not allowed to edit someone else game</h3>
+
+      <% end %>
+      </div>
+  </div>
+</div>
