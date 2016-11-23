@@ -19,7 +19,11 @@ before_action :find_game, only: [:show, :edit, :update]
       @games = Game.all
     end
 
-   @date = params[:date]
+    @games_coordinates = @games.map do |game|
+      { lat: game.latitude, lng: game.longitude }
+    end
+
+    @date = params[:date]
    # permettra de filter les escape games selon dispo à cette date là
   end
 
