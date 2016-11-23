@@ -3,23 +3,32 @@
   <div class="row">
 
     <div class="col-xs-8 col-sm-8">
-          <div class="row">
-            <% @games.each do |game| %>
+      <div class="row">
+        <% @games.each do |game| %>
 
-              <div class="col-xs-6 col-sm-6">
-                <div class="card" style="background-image: url('http://lorempixel.com/800/600')">
-                  <div class="card-description">
-                    <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
-                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
-                  </div>
-                  <span class="card-price"><%= game.price_per_hour %>€</span>
-                </div>
+        <% if game.photo? %>
+          <% game_url = game.photo.path %>
+        <% else %>
+          <% game_url = "closed_room.jpg" %>
+        <% end %>
+
+          <div class="col-xs-6 col-sm-6">
+            <div class="card" style="background-image: url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+              <div class="card-description">
+                <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
+                <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
               </div>
-            <% end %>
+              <span class="card-price"><%= game.price_per_hour %>€</span>
+            </div>
           </div>
+        <% end %>
+      </div>
     </div>
 
-    <div class="col-xs-4 col-sm-4 index-form-container">
+    <!-- Barre latérale droite  -->
+    <div class="col-xs-4 col-sm-4">
+      <!-- Forumlaire -->
+      <div class="index-form-container">
         <div class="row"><h1>Your choice</h1></div>
         <%= form_tag(games_path, :method => "get", class: "search-form") do %>
           <div class="row"><%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
@@ -28,8 +37,36 @@
           <div class="row"><button type="submit" class="btn btn-danger">Update search</button></div>
         <% end %>
       </div>
+
+      <!-- Carte goolgle maps -->
+
+
+
+      <div id="map" style="width: 100%; height: 350px;"></div>
+      <script>
+        <% content_for(:after_js) do %>
+          <%= javascript_tag do %>
+            $(document).ready(function() {
+              var handler = Gmaps.build('Google');
+              handler.buildMap({ internal: { id: 'map' } }, function() {
+                markers = handler.addMarkers(<%= raw @games_coordinates.to_json %>);
+                handler.bounds.extendWith(markers);
+                handler.fitMapToBounds();
+                if (markers.length == 0) {
+                  handler.getMap().setZoom(2);
+                } else if (markers.length == 1) {
+                  handler.getMap().setZoom(14);
+                }
+              });
+            });
+          <% end %>
+        <% end %>
+        </script>
+
+
     </div>
 
+    </div>
   </div>
-</div>
 
+</div>

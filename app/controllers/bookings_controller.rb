@@ -1,5 +1,4 @@
 class BookingsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create]
   before_action :pick_current_game, only: [:new]
 
 
@@ -23,7 +22,7 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(new_booking_params)
     @booking.save
-    redirect_to booking_path(@booking)
+    redirect_to user_path(current_user)
   end
 
   private
