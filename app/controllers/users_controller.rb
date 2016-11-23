@@ -2,14 +2,13 @@ class UsersController < ApplicationController
   before_action :find_user_id, only: [:show, :edit, :update]
 
   def show
-    @games_customer = []
-    bookings = Booking.where(user_id: @user.id)
-    bookings.each { |book| @games_customer << Game.find(book.game_id) }
+    @booking_customer = Booking.where(user_id: current_user.id)
+    # bookings = Booking.where(user_id: @user.id)
+    # bookings.each { |book| @games_customer << book.game }
     @games_host = @user.games
 
     @host_bookings = Booking.joins(:game).where(games: { user_id: @user.id })
     @pending_bookings = @host_bookings.where(accepted: nil)
-
   end
 
   def edit
