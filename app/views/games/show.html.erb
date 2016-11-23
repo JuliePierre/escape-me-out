@@ -1,24 +1,20 @@
 <div class="container padded">
     <div class="row">
       <div class="col-xs-12 col-sm-8">
-        <!-- <div class="row"> -->
-          <% if @game.photo? %>
-            <% game_img_url = cl_image_path @game.photo.path, width: 680, height: 300, crop: :fill %>
-          <% else %>
-            <% game_img_url = cl_image_path "closed_room.jpg", width: 680, height: 300, crop: :fill %>
-          <% end %>
-          <div id="game-show-img" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= game_img_url %>');">
-            <h1><%= @game.name %></h1>
-          </div>
-        <!-- </div> -->
-        <!-- <div class="row"> -->
-          <div class="text-justify"><%= @game.description %></div>
-          <div id="game-address-and-owner">
-            <div><p><%= @game.address %><br>Tel : <%= @game.phone_number %></p></div>
-            <div><p>Number of players : from <%= @game.min_players %> to <%= @game.max_players %><br>Price per hour : <%= @game.price_per_hour %> €</p></div>
-            <p>Hosted by : <%= link_to @game.user.first_name == "" ? @game.user.email : @game.user.email, user_path(@game.user) %></p>
-          </div>
-        <!-- </div> -->
+        <% if @game.photo? %>
+          <% game_img_url = cl_image_path @game.photo.path, width: 680, height: 300, crop: :fill %>
+        <% else %>
+          <% game_img_url = cl_image_path "closed_room.jpg", width: 680, height: 300, crop: :fill %>
+        <% end %>
+        <div id="game-show-img" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= game_img_url %>');">
+          <h1><%= @game.name %></h1>
+        </div>
+        <div class="text-justify"><%= @game.description %></div>
+        <div id="game-address-and-owner">
+          <div><p><%= @game.address %><br>Tel : <%= @game.phone_number %></p></div>
+          <div><p>Number of players : from <%= @game.min_players %> to <%= @game.max_players %><br>Price per hour : <%= @game.price_per_hour %> €</p></div>
+          <p>Hosted by : <%= link_to @game.user.first_name == "" ? @game.user.email : @game.user.email, user_path(@game.user) %></p>
+        </div>
       </div>
       <div class="col-xs-12 col-sm-4">
         <div class="index-form-container">

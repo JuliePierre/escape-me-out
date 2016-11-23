@@ -1,16 +1,14 @@
-<div class="container form-container">
+<div class="container padded">
   <div class="row">
-    <div class="col-xs-12">
-      <h1>Edit <%= @game.name %></h1>
-      <% if @game.user == current_user %>
-
-        <%= render 'form'  %>
-
-      <% else %>
-
-        <h3>You are not allowed to edit someone else game</h3>
-
-      <% end %>
+    <div class="col-xs-8 col-sm-8 col-xs-offset-2 col-sm-offset-2">
+      <div class="form-container">
+        <h1>Edit <%= @game.name %></h1>
+          <% if @game.user == current_user %>
+            <%= render 'form'  %>
+          <% else %>
+            <h3>You are not allowed to edit someone else game</h3>
+          <% end %>
       </div>
+    </div>
   </div>
 </div>

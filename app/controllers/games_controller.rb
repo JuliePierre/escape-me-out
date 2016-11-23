@@ -12,14 +12,18 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     elsif params[:search] == nil && params[:nb_players] != nil
       @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
     elsif params[:search] != nil && params[:nb_players] == nil
-      @games = Game.where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
+      @games = Game.where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
     elsif params[:search] != nil && params[:nb_players] != nil
-      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players]).where("name LIKE ? OR address LIKE ?", params[:search], "%#{params[:search]}%")
+      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players]).where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
     else
       @games = Game.all
     end
 
-   @date = params[:date]
+    @games_coordinates = @games.map do |game|
+      { lat: game.latitude, lng: game.longitude }
+    end
+
+    @date = params[:date]
    # permettra de filter les escape games selon dispo à cette date là
   end
 
