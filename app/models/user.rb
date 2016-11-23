@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :games
   has_many :bookings
+
+  def host?
+    Game.find_by(user_id: id)
+  end
 end
