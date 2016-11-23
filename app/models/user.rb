@@ -7,7 +7,11 @@ class User < ApplicationRecord
   has_many :bookings
 
   def host?
-    Game.find_by(user_id: id)
+    if Game.find_by(user_id: id)
+      return true
+    else
+      return false
+    end
   end
 
   def host_game?(game)
@@ -15,6 +19,10 @@ class User < ApplicationRecord
   end
 
   def player?
-    Booking.find_by(user_id: id)
+    if Booking.find_by(user_id: id)
+      return true
+    else
+      return false
+    end
   end
 end
