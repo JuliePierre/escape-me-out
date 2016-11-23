@@ -8,6 +8,18 @@ class BookingsController < ApplicationController
     @booking = Booking.new
   end
 
+  def update
+    pending_booking = Booking.find(params[:booking_id])
+    if params[:do] == "accept"
+      pending_booking.update(accepted: true)
+      pending_booking = nil
+    elsif params[:do] == "decline"
+      pending_booking.update(accepted: false)
+      pending_booking = nil
+    end
+    redirect_to user_path(current_user)
+  end
+
   def create
     @booking = Booking.new(new_booking_params)
     @booking.save
