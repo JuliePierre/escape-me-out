@@ -158,16 +158,16 @@
         <!-- Show all bookings -->
 
         <h1 class="text-center">Welcome Customer!</h1>
-          <% @games_customer.each do |game| %>
+          <% @booking_customer.each do |booking| %>
             <div class="product">
               <div class='product-body'>
-                <h3><%= link_to game.name, game_path(game) %></h3>
-                <% booking = Booking.find_by(game_id: game.id) %>
-                <% booking_time = booking.starts_at %>
+                <h3><%= link_to booking.game.name, game_path(booking.game) %></h3>
                 <% if booking.accepted == true %>
-                  <p>Accepted Booking: <%= booking_time.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Accepted Booking: <%= booking.starts_at.strftime("%A, %d %b %Y %l:%M %p") %></p>
                 <% elsif booking.accepted.nil? %>
-                  <p>Pending Booking: <%= booking_time.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Pending Booking: <%= booking.starts_at.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                <% elsif booking.accepted == false %>
+                  <p>Declined Booking: <%= booking.starts_at.strftime("%A, %d %b %Y %l:%M %p") %></p>
                 <% end %>
               </div>
               <ul class="list-inline product-controls hidden-sm hidden-xs">
