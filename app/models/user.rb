@@ -10,6 +10,10 @@ class User < ApplicationRecord
     Game.find_by(user_id: id)
   end
 
+  def host_game?(game)
+    self.games.include?(game)
+  end
+
   def player?
     Booking.find_by(user_id: id)
   end

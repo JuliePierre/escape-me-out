@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
 skip_before_action :authenticate_user!, only: [:index, :show]
-before_action :find_game, only: [:show, :edit, :update]
+before_action :find_game, only: [:show, :edit, :update, :destroy]
 
   def index
     params[:search] = nil if params[:search] == ""
@@ -48,6 +48,11 @@ before_action :find_game, only: [:show, :edit, :update]
   end
 
   def edit
+  end
+
+  def destroy
+    @game.destroy
+    redirect_to user_path(current_user)
   end
 
   def update
