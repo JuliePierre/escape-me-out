@@ -1,14 +1,14 @@
 <%= simple_form_for(@game) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :address %>
-  <%= f.input :phone_number %>
-  <%= f.input :min_players %>
-  <%= f.input :max_players %>
-  <%= f.input :price_per_hour %>
+  <%= f.input :name, placeholder: "Escape Room" %>
+  <%= f.input :description, as: :text, placeholder: "Describe your game here : story, difficulty, etc"%>
+  <%= f.input :address, placeholder: "1 avenue des Champs Elysées, Paris" %>
+  <%= f.input :phone_number, placeholder: "01 47 00 00 00" %>
+  <%= f.input :min_players, placeholder: "1 minimum" %>
+  <%= f.input :max_players, placeholder: "20 maximum" %>
+  <%= f.input :price_per_hour, placeholder: "30€" %>
   <%= f.input :photo, as: :attachinary %>
 
-  <%= f.button :submit, class: 'btn btn-danger index-form-container' %>
+  <%= f.button :submit, class: 'btn btn-danger' %>
 <% end %>
