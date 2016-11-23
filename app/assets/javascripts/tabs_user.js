@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $('.host_content').show();
+  $('.player_content').hide();
   $(".tab").on('click', function(event) {
     $('.active').removeClass('active')
     $(this).addClass('active');
