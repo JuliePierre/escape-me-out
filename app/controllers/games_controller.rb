@@ -18,10 +18,18 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     else
       @games = Game.all
     end
-    @games = @games.where.not(latitude: nil)
-    @games_coordinates = @games.map do |game|
-      { lat: game.latitude, lng: game.longitude }
+    @games_co = @games.where.not(latitude: nil)
+
+    @games_coordinates = Gmaps4rails.build_markers(@games) do |game, marker|
+      marker.lat game.latitude
+      marker.lng game.longitude
+      marker.infowindow "<a href='#{game_path(game)}'> #{game.name} </a><p>From #{game.min_players} to #{game.max_players} players</p>"
     end
+
+
+    # @games_coordinates = @games_co.map do |game|
+    #   { lat: game.latitude, lng: game.longitude }
+    # end
 
     @date = params[:date]
    # permettra de filter les escape games selon dispo à cette date là
