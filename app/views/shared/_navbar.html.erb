@@ -7,21 +7,9 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
-    <!-- Dropdown -->
-    <div class="navbar-wagon-item">
-      <div class="dropdown">
-        <a class="navbar-wagon-link dropdown-toggle" id="navbar-wagon-menu" data-toggle="dropdown" href="/games" aria-expanded="false"><i class="fa fa-trophy" aria-hidden="true"></i>Games
-        <i class="fa fa-caret-down" aria-hidden="true"></i></a>
-        <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-          <li><a href="/">Home</a></li>
-          <li><a href="/games">All games</a></li>
-        </ul>
-      </div>
-    </div>
-
     <!-- Search form -->
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name", class: "form-control border-radius" %>
+          <%= text_field_tag :name, params[:name], placeholder: "Search by name", class: "form-control border-radius" %>
      <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
         <% end %>
 
@@ -44,7 +32,7 @@
     </div>
 
   <!-- Button Create a new game -->
-  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
+  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-game-button btn" %>
 
   </div>
 

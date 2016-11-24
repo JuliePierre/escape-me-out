@@ -33,6 +33,7 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
+  gem 'letter_opener'
   gem 'binding_of_caller'
   gem 'better_errors'
 

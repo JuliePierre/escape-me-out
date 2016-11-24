@@ -4,27 +4,34 @@ skip_before_action :authenticate_user!, only: [:index, :show, :get_available_tim
 before_action :find_game, only: [:show, :edit, :update, :destroy]
 
   def index
-    params[:search] = nil if params[:search] == ""
+    params[:address] = nil if params[:address] == ""
     params[:nb_players] = nil if params[:nb_players] == ""
+    params[:name] = nil if params[:name] == ""
 
-    if params[:search] == nil && params[:nb_players] == nil
+    if params[:address] == nil && params[:nb_players] == nil && params[:name] == nil
       @games = Game.all
-    elsif params[:search] == nil && params[:nb_players] != nil
+    elsif params[:address] == nil && params[:nb_players] == nil && params[:name] != nil
+      @games = Game.where("name ILIKE ?", "%#{params[:name]}")
+    elsif params[:address] == nil && params[:nb_players] != nil && params[:name] == nil
       @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
-    elsif params[:search] != nil && params[:nb_players] == nil
-      @games = Game.where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
-    elsif params[:search] != nil && params[:nb_players] != nil
-      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players]).where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    elsif params[:address] != nil && params[:nb_players] == nil && params[:name] == nil
+      @games = Game.near(params[:address], 20)
+    elsif params[:address] != nil && params[:nb_players] != nil && params[:name] == nil
+      @games = Game.near(params[:address], 20).where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
     else
       @games = Game.all
     end
-    @games = @games.where.not(latitude: nil)
-    @games_coordinates = @games.map do |game|
-      { lat: game.latitude, lng: game.longitude }
+
+    @games_co = @games.where.not(latitude: nil, longitude: nil )
+
+    @games_coordinates = Gmaps4rails.build_markers(@games_co) do |game, marker|
+      marker.lat game.latitude
+      marker.lng game.longitude
+      marker.infowindow "<a href='#{game_path(game)}'> #{game.name} </a><p>From #{game.min_players} to #{game.max_players} players</p>"
     end
 
     @date = params[:date]
-   # permettra de filter les escape games selon dispo à cette date là
+
   end
 
   def new
