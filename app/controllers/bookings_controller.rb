@@ -3,7 +3,6 @@ class BookingsController < ApplicationController
 
 
   def new
-    raise
     formating_date
     @booking = Booking.new
   end
