@@ -48,7 +48,7 @@
 
         <!-- formulaire de reservation -->
         <div class="index-form-container">
-          <% if !current_user.host_game?(@game) %>
+          <% if not user_signed_in? or not current_user.host_game?(@game) %>
             <h2>Book this escape game</h2>
             <p>
               <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
