@@ -32,7 +32,7 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     # end
 
     @date = params[:date]
-   # permettra de filter les escape games selon dispo à cette date là
+
   end
 
   def new
