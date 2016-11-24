@@ -21,6 +21,8 @@ class BookingsController < ApplicationController
 
   def create
     @booking = Booking.new(new_booking_params)
+    # binding.pry
+    @booking.starts_at -= 1.hour
     @booking.save
     redirect_to user_path(current_user)
   end

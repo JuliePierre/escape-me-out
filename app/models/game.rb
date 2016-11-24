@@ -1,4 +1,4 @@
-class Game < ApplicationRecord
+  class Game < ApplicationRecord
   DEFAULT_STARTS_TIME = [18, 19, 20, 21, 22]
   GAME_DEFAULT_CLOSING_TIME = 23
   MIN_GAME_DURATION = 1 #hour(s)
@@ -31,9 +31,14 @@ class Game < ApplicationRecord
     available_start_times = possible_start_time.select do |start_time|
       start_time_authorized = true
       bookings_for_this_game_and_date.each do |booking|
-        if start_time.between?(booking.starts_at, booking.starts_at + booking.duration.hour)
+
+        if start_time >= booking.starts_at && start_time < booking.starts_at + booking.duration.hour
           start_time_authorized = false
         end
+        # if start_time.between?(booking.starts_at, booking.starts_at + booking.duration.hour)
+        #   binding.pry
+        #   start_time_authorized = false
+        # end
       end
       start_time_authorized
     end
