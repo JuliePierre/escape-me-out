@@ -33,6 +33,7 @@ source 'https://rails-assets.org' do
 end
 
 group :development, :test do
+  gem 'letter_opener'
   gem 'binding_of_caller'
   gem 'better_errors'
 
@@ -43,4 +44,4 @@ group :development, :test do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-gem 'letter_opener', group: :developement
+

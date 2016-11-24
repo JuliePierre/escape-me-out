@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
   def welcome(user)
     @user = user
 
-    mail(to: @user.email, subject: 'Welcome to Escape-me-out')
+    mail to: @user.email, subject: 'Welcome to Escape-me-out'
   end
 end
