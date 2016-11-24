@@ -1,30 +1,21 @@
-<div class="homepage-hero-module">
-  <div class="video-container">
-    <div class="filter">
-      <div class="banner">
-        <div class="banner-content">
-          <h1>The only escape game booking platform</h1>
-          <p>Find the escape game that fits you</p>
-          <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
-              <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
-              <%= text_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius datepicker" %>
-              <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i>  SEARCH</button>
-          <% end %>
-          <br>
-          <br>
-          <br>
-          <br>
-          <p>Don't know what you're looking for ?</p>
-          <%= link_to "See all games", games_path, class: "btn btn-danger btn-lg" %>
-        </div>
-      </div>
-    </div>
-<!--     <video autoplay loop class="fillWidth">
-      <source src="http://www.sciencestools.com/public/escape_game.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
-    </video> -->
-    <div class="poster hidden">
-      <img src="http://sciencestools.com/public/Pour.jpg" alt="">
-    </div>
+<div class="banner">
+  <video autoplay loop class="fillWidth">
+    <source src="http://www.sciencestools.com/public/escape_game.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+  </video>
+  <div class="banner-content">
+    <h1>The only escape game booking platform</h1>
+    <p>Find the escape game that fits you</p>
+    <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+        <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
+        <%= text_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius datepicker" %>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i>  SEARCH</button>
+    <% end %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>Don't know what you're looking for ?</p>
+    <%= link_to "See all games", games_path, class: "btn btn-danger btn-lg" %>
   </div>
 </div>

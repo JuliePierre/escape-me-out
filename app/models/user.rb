@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :games
   has_many :bookings
 
+  after_create :send_welcome_email
+
   def host?
     if Game.find_by(user_id: id)
       return true
@@ -45,4 +47,11 @@ class User < ApplicationRecord
 
     return user
   end
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
+  end
+
 end
