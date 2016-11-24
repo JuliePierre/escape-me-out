@@ -31,18 +31,20 @@
       <div class="index-form-container">
         <div class="row"><h1>Your choice</h1></div>
         <%= form_tag(games_path, :method => "get", class: "search-form") do %>
-          <div class="row"><%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
-          <div class="row"><%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %></div>
-          <% date_value = params[:date] || Time.now.strftime('%Y-%m-%d') %>
-          <div class="row"><%= date_field_tag :date, date_value, placeholder: "Choose a date", class: "form-control border-radius" %></div>
+          <div class="row">
+          <%= label_tag ":search", "Where?" %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
+          <div class="row">
+          <%= label_tag "nb_players", "Number of players" %>
+          <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %></div>
+          <div class="row">
+          <%= label_tag "date", "Booking date" %>
+          <%= text_field_tag :date, params[:date], placeholder: "Chose a date", class: "form-control border-radius datepicker" %></div>
           <div class="row"><button type="submit" class="btn btn-danger">Update search</button></div>
         <% end %>
       </div>
 
       <!-- Carte goolgle maps -->
-
-
-
       <div id="map" style="width: 100%; height: 350px;"></div>
       <script>
         <% content_for(:after_js) do %>

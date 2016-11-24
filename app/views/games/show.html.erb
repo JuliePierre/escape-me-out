@@ -20,6 +20,8 @@
           <p>Hosted by : <%= link_to @game.user.first_name == "" ? @game.user.email : @game.user.email, user_path(@game.user) %></p>
         </div>
       </div>
+
+      <!-- barre à droite : carte + formulaire -->
       <div class="col-xs-12 col-sm-4">
 
         <!-- Carte google maps -->
@@ -44,6 +46,7 @@
             <% end %>
           </script>
 
+        <!-- formulaire de reservation -->
         <div class="index-form-container">
           <% if !current_user.host_game?(@game) %>
             <h2>Book this escape game</h2>
@@ -51,7 +54,7 @@
               <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
                 <div class="form-group">
                   <%= label_tag "date", "Booking date" %>
-                  <%= date_field_tag :date, params[:date], value: params[:date], placeholder: "Choose a date", class: "form-control border-radius" %>
+                  <%= text_field_tag :date, params[:date], placeholder: "Chose a date", class: "form-control border-radius datepicker" %>
                 </div>
                 <div class="form-group">
                   <%= label_tag "nb_players", "Number of players" %>
