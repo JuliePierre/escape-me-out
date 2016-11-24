@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :bookings, only: [:index, :show]
   mount Attachinary::Engine => "/attachinary"
   get "/games/:id/get_available_time_slots/:date" => "games#get_available_time_slots"
+  get "/games/:id/get_possible_durations/:date/:time" => "games#get_possible_durations"
 end

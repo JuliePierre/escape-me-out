@@ -2,7 +2,7 @@
   <%= @game.name %>
 <% end %>
 
-<% display_booking_form = (not user_signed_in?) or (not current_user.host_game?(@game)) %>
+<% display_booking_form = (not user_signed_in?) || (not current_user.host_game?(@game)) %>
 
 <div class="container padded">
     <div class="row">
@@ -46,10 +46,13 @@
 
 
                   //#Adding AJAX
-                  <% Rails.env.production? ? base_url = "http://escape-me-out.herokuapp.com": base_url = "http://localhost:3000" %>
-                  <% get_time_slots_api = base_url + "/games/#{@game.id}/get_available_time_slots/#{params[:date]}" %>
+
 
                   <% if display_booking_form %>
+                    <% Rails.env.production? ? base_url = "http://escape-me-out.herokuapp.com": base_url = "http://localhost:3000" %>
+
+                    //Below code intends to retrieve and update possible values for timeslots upon date change from datepicker
+                    <% get_time_slots_api = base_url + "/games/#{@game.id}/get_available_time_slots/" %>
                     $('.datepicker').on('change', function(event) {
                       $.ajax({
                         type: "GET",
@@ -69,6 +72,41 @@
                             $el.append($("<option></option>")
                                .attr("value", value).text(key));
                           });
+                          console.log(timeslots);
+                        },
+                        error: function(jqXHR) {
+                          console.log('<%= get_time_slots_api %>')
+                          console.error(jqXHR.responseText);
+                        }
+                      });
+                    });
+
+                    //Below code intends to retrieve and update possible durations according to selected timeslot and date
+                    <% get_possible_durations_api = base_url + "/games/#{@game.id}/get_possible_durations/" %>
+
+                    $('#time-select').on('change', function(event) {
+                      console.log('<%= get_possible_durations_api %>');
+
+
+                      $.ajax({
+                        type: "GET",
+                        url: '<%= get_possible_durations_api %>' + $('.datepicker').val() + '/' + $('#time-select').val(),
+                        success: function(data) {
+                          console.log(data);
+
+                          var durations = {};
+                          data.forEach(function(x) {
+                            durations[x + " hour(s)"] = x;
+                          });
+
+                          var $el = $("#duration-select");
+                          $el.empty(); // remove old options
+                          $.each(durations, function(key,value) {
+                            $el.append($("<option></option>")
+                               .attr("value", value).text(key));
+                          });
+
+                          console.log(durations);
 
 
                         },
@@ -81,9 +119,7 @@
 
                     });
 
-
                   <% end %>
-
                 });
               <% end %>
             <% end %>
@@ -111,7 +147,7 @@
                 <div class="form-group">
                   <%= label_tag "duration" %>
                   <% my_options_for_select_duration = (1..3).to_a.map { |x| [x.to_s + " hour(s)", x] } %>
-                  <%= select_tag "duration", options_for_select(my_options_for_select_duration, params[:duration]), class: "form-control border-radius" %>
+                  <%= select_tag "duration", options_for_select(my_options_for_select_duration, params[:duration]), class: "form-control border-radius", id: "duration-select" %>
                 </div>
                 <button type="submit" class="btn btn-danger">Book</button>
               <% end %>
