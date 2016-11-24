@@ -9,7 +9,8 @@
 
     <!-- Search form -->
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Search by name", class: "form-control border-radius search-event", id: "search-text-navbar" %>
+      <%= text_field_tag :name, params[:name], placeholder: "Search by name", class: "form-control border-radius" %>
+     <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
       <%= link_to "" do%>
         <i class="fa fa-search search-btn" id="loupe"></i>
       <% end %>
