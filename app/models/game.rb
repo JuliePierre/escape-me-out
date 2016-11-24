@@ -21,6 +21,9 @@ class Game < ApplicationRecord
 
   def availabilities(my_date)
     # Returns an array of available start time for the given date
+
+    #Improvement possible : take into account booking state
+
     bookings_for_this_game_and_date = bookings_on(my_date)
 
     possible_start_time = DEFAULT_STARTS_TIME.map { |hour_integer| self.class.hour_to_datetime(hour_integer, my_date) }

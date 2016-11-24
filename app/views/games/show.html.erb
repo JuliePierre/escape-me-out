@@ -2,6 +2,8 @@
   <%= @game.name %>
 <% end %>
 
+<% display_booking_form = (not user_signed_in?) or (not current_user.host_game?(@game)) %>
+
 <div class="container padded">
     <div class="row">
       <div class="col-xs-12 col-sm-8">
@@ -41,6 +43,47 @@
                       handler.getMap().setZoom(14);
                     }
                   });
+
+
+                  //#Adding AJAX
+                  <% Rails.env.production? ? base_url = "http://escape-me-out.herokuapp.com": base_url = "http://localhost:3000" %>
+                  <% get_time_slots_api = base_url + "/games/#{@game.id}/get_available_time_slots/#{params[:date]}" %>
+
+                  <% if display_booking_form %>
+                    $('.datepicker').on('change', function(event) {
+                      $.ajax({
+                        type: "GET",
+                        url: '<%= get_time_slots_api %>' + $('.datepicker').val(),
+                        success: function(data) {
+                          console.log(data);
+
+                          var timeslots = {};
+                          data.forEach(function(x) {
+                            var local_time = new Date(x).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                            timeslots[local_time] = local_time;
+                          });
+
+                          var $el = $("#time-select");
+                          $el.empty(); // remove old options
+                          $.each(timeslots, function(key,value) {
+                            $el.append($("<option></option>")
+                               .attr("value", value).text(key));
+                          });
+
+
+                        },
+                        error: function(jqXHR) {
+                          console.log('<%= get_time_slots_api %>')
+                          console.error(jqXHR.responseText);
+                        }
+                      });
+
+
+                    });
+
+
+                  <% end %>
+
                 });
               <% end %>
             <% end %>
@@ -48,7 +91,7 @@
 
         <!-- formulaire de reservation -->
         <div class="index-form-container">
-          <% if not user_signed_in? or not current_user.host_game?(@game) %>
+          <% if display_booking_form %>
             <h2>Book this escape game</h2>
             <p>
               <%= form_tag(new_game_booking_path(@game), :method => "get") do %>
@@ -63,7 +106,7 @@
                 </div>
                 <div class="form-group">
                   <%= label_tag "time_select", "Available sessions" %>
-                  <%= select_tag "time_select", options_for_select(@availabilities, params[:time_select]), class: "form-control border-radius" %>
+                  <%= select_tag "time_select", options_for_select(@availabilities, params[:time_select]), class: "form-control border-radius", id: "time-select" %>
                 </div>
                 <div class="form-group">
                   <%= label_tag "duration" %>

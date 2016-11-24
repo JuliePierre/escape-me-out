@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 
-skip_before_action :authenticate_user!, only: [:index, :show]
+skip_before_action :authenticate_user!, only: [:index, :show, :get_available_time_slots]
 before_action :find_game, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -63,6 +63,12 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     else
       render :edit
     end
+  end
+
+  def get_available_time_slots
+    my_date = Date.parse(params[:date])
+    my_game = Game.find(params[:id]).availabilities(my_date)
+    render :json => my_game
   end
 
   private
