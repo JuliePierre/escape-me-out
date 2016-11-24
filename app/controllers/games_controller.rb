@@ -4,20 +4,24 @@ skip_before_action :authenticate_user!, only: [:index, :show]
 before_action :find_game, only: [:show, :edit, :update, :destroy]
 
   def index
-    params[:search] = nil if params[:search] == ""
+    params[:address] = nil if params[:address] == ""
     params[:nb_players] = nil if params[:nb_players] == ""
+    params[:name] = nil if params[:name] == ""
 
-    if params[:search] == nil && params[:nb_players] == nil
+    if params[:address] == nil && params[:nb_players] == nil && params[:name] == nil
       @games = Game.all
-    elsif params[:search] == nil && params[:nb_players] != nil
+    elsif params[:address] == nil && params[:nb_players] == nil && params[:name] != nil
+      @games = Game.where("name ILIKE ?", "%#{params[:name]}")
+    elsif params[:address] == nil && params[:nb_players] != nil && params[:name] == nil
       @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
-    elsif params[:search] != nil && params[:nb_players] == nil
-      @games = Game.where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
-    elsif params[:search] != nil && params[:nb_players] != nil
-      @games = Game.where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players]).where("name ILIKE ? OR address ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    elsif params[:address] != nil && params[:nb_players] == nil && params[:name] == nil
+      @games = Game.near(params[:address], 20)
+    elsif params[:address] != nil && params[:nb_players] != nil && params[:name] == nil
+      @games = Game.near(params[:address], 20).where("min_players <= ? AND max_players >= ?", params[:nb_players], params[:nb_players])
     else
       @games = Game.all
     end
+
     @games_co = @games.where.not(latitude: nil, longitude: nil )
 
     @games_coordinates = Gmaps4rails.build_markers(@games_co) do |game, marker|

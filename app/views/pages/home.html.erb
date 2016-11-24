@@ -6,7 +6,7 @@
     <h1>The only escape game booking platform</h1>
     <p>Find the escape game that fits you</p>
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-        <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %>
+        <input type="text" name="address" id="search_address" class="form-control border-radius" placeholder="Where ?">
         <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
         <%= text_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius datepicker" %>
         <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i>  SEARCH</button>
