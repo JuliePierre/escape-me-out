@@ -1,7 +1,7 @@
 <div class="container padded">
 
   <div class="row">
-
+    <!-- Résultats de recherche  -->
     <div class="col-xs-8 col-sm-8">
       <div class="row">
         <% @games.each do |game| %>
@@ -13,13 +13,37 @@
         <% end %>
 
           <div class="col-xs-6 col-sm-6">
-            <div class="card" style="background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+
+            <% if @date != "" && @date != nil %>
+              <% if game.availabilities(@date) %>
+                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+                  <div class="card-description">
+                    <h2><%= game.name %></h2>
+                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
+                  </div>
+                  <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
+                  <span class="card-price"><%= game.price_per_hour %>€</span>
+                </div>
+              <% else %>
+                <div class="card card-non-available" style="background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+                  <div class="card-description">
+                    <h2><%= game.name %></h2>
+                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
+                  </div>
+                  <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
+                  <span class="card-price">NOT AVAILABLE ON THE GIVEN DATE</span>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
               <div class="card-description">
-                <h2><%= link_to game.name, game_path(game, nb_players: params[:nb_players], date: params[:date]) %></h2>
+                <h2><%= game.name %></h2>
                 <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
               </div>
+              <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
               <span class="card-price"><%= game.price_per_hour %>€</span>
-            </div>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -27,7 +51,7 @@
 
     <!-- Barre latérale droite  -->
     <div class="col-xs-4 col-sm-4">
-      <!-- Forumlaire -->
+      <!-- Formulaire -->
       <div class="index-form-container">
         <div class="row"><h1>Your choice</h1></div>
         <%= form_tag(games_path, :method => "get", class: "search-form") do %>
