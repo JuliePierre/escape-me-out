@@ -88,6 +88,18 @@
   background: #f7f7fa;
   cursor: pointer;
 }
+
+.product-accepted:hover {
+  background: #C1E6CC;
+  cursor: pointer;
+}
+
+.product-declined:hover {
+  background: #FFA8B0;
+  cursor: pointer;
+}
+
+
 .product-upvote:hover, .product-upvote.product-upvote-upvoted {
   color: #5898f1;
   cursor: pointer;
@@ -102,7 +114,7 @@
 // !!!!!! TABS !!!!!!
 
 .tabs {
-  background: #53443F;
+  background: #D65851;
   display: flex;
   padding: 10px 10px 0 10px
 }
@@ -122,10 +134,13 @@
 .tabs p {
   opacity: 0.5;
   margin-bottom: 0;
+  color: #333333;
+  font-weight: bold;
+  font-size: 20px;
 }
 .tab {
-  background: #756A66;
-  flex: 0 0 25%;
+  background: #FF9487;
+  flex: 0 0 50%;
   text-align: center;
   padding: 20px 0;
 }
