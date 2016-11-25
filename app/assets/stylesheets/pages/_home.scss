@@ -30,7 +30,7 @@
   background-color: $green;
   text-shadow: none;
   border-radius: 5%;
-  box-shadow: 0px 0px 1px $deepgreen, 0px 1px 1px $deepgreen, 0px 2px 1px $deepgreen;
+  box-shadow: 0px 0px 1px $deepgreen, 0px 1px 1px $deepgreen;
   cursor: pointer;
   display: inline-block;
   box-sizing: border-box;
@@ -39,20 +39,21 @@
   outline: 0px;
   color: white;
   font-size: 14px;
+  opacity: 0.9;
   }
 
 .banner-wagon-button:hover {
-  margin-bottom: 3px;
-  box-shadow: 0px 0px 1px $deepgreen, 0px 1px 1px $deepgreen, 0px 2px 1px $deepgreen, 0px 3px 1px $deepgreen;
+  box-shadow: 0px 0px 1px $deepgreen, 0px 1px 1px $deepgreen;
   text-decoration: none;
-  color:white;
+  color: white;
   cursor: pointer;
   display: inline-block;
   box-sizing: border-box;
   user-select: none;
   border: 0px;
   outline: 0px;
-  font-size: 12px;
+  font-size: 14px;
+  opacity: 1;
 }
 
 #large {
