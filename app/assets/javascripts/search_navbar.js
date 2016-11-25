@@ -1,12 +1,11 @@
-
   $('.search-event').hide();
   $('#close').hide()
   if ($('.search-event').attr("hidden", true)) {
   $(".search-btn").on('click', function(event) {
       event.preventDefault();
       $('.search-btn').hide();
-      $('.search-event').show('slow');
-      $('#close').show('slow');
+      $('.search-event').css('visibility', 'visible').show('slow');
+      $('#close').css('visibility', 'visible').show('slow');
       $('.navbar-wagon-right').css('width', '600px')
     });
   }
