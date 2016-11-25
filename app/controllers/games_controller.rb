@@ -51,8 +51,10 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
   def show
     @booking = Booking.new
     @date = get_date
-    @availabilities = @game.availabilities(@date).map { |x| x.strftime("%H:%M") }
-
+    game_availabilities_dates = @game.availabilities(@date)
+    if game_availabilities_dates
+      @availabilities = game_availabilities_dates.map { |x| x.strftime("%H:%M") }
+    end
     @game_coordinates = [{ lat: @game.latitude, lng: @game.longitude }]
   end
 
