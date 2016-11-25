@@ -54,7 +54,13 @@
 .card-non-available {
   background: white;
   opacity: 0.8;
+}
 
+.non-availability-message {
+  position: absolute;
+  top: 80px;
+  right: 35px;
+  font-weight: bold;
 }
 
 .non-availability-message {
