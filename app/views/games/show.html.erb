@@ -51,7 +51,7 @@
 
 
                   <% if display_booking_form %>
-                    <% Rails.env.production? ? base_url = "http://escape-me-out.herokuapp.com": base_url = "http://localhost:3000" %>
+                    <% Rails.env.production? ? base_url = "https://escape-me-out.herokuapp.com": base_url = "http://localhost:3000" %>
 
                     //Below code intends to retrieve and update possible values for timeslots upon date change from datepicker
                     <% get_time_slots_api = base_url + "/games/#{@game.id}/get_available_time_slots/" %>
