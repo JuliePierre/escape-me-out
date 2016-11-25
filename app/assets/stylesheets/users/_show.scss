@@ -105,12 +105,17 @@
 // !!!!!! TABS !!!!!!
 
 .tabs {
-  background: #90C8A0;
+  background: #999999;
   display: flex;
   padding: 10px 10px 0 10px
 }
 .tabs a {
   color: white;
+  text-decoration: none;
+}
+
+.tabs a:active {
+  text-decoration: none;
 }
 .tabs a:hover {
   cursor: pointer;
@@ -125,9 +130,11 @@
 .tabs p {
   opacity: 0.5;
   margin-bottom: 0;
+  color: #333333;
+  font-weight: bold;
 }
 .tab {
-  background: #B3FBC9;
+  background: #6CF68C;
   flex: 0 0 50%;
   text-align: center;
   padding: 20px 0;
@@ -198,7 +205,7 @@ padding: 0px;
 
 .status-accepted {
   color: white;
-  background: #5AB450;
+  background: #4CAF62;
   padding: 10px;
   position: absolute;
   right: 15px;
