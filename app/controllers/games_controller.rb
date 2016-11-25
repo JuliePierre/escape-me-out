@@ -99,6 +99,11 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
   end
 
   def get_date
-    params[:date] ? Date.parse(params[:date]) : Date.today
+    if !params[:date] || params[:date] == ""
+      params[:date] = Date.today
+    else
+      Date.parse(params[:date])
+    end
+    return params[:date]
   end
 end
