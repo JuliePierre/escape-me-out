@@ -62,7 +62,12 @@
             <div class="row">
             <% @games_host.each do |game| %>
               <div class="col-sm-6">
-                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+                <% if game.photo? %>
+                  <% game_img_url = cl_image_path game.photo.path, height: 300, width: 400, crop: :fill %>
+                <% else %>
+                  <% game_img_url = cl_image_path "closed_room.jpg", height: 300, width: 400, crop: :fill %>
+                <% end %>
+                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= game_img_url %>')">
                   <div class="card-description">
                     <h2><%= game.name %></h2>
                     <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
