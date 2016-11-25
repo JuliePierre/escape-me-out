@@ -1,7 +1,7 @@
 <div class="navbar-wagon">
   <!-- Logo -->
   <a href="/" class="navbar-wagon-brand">
-    <%= image_tag "logo.png" %>
+    <%= image_tag "logo2.png" %>
   </a>
 
   <!-- Right Navigation -->
@@ -9,9 +9,16 @@
 
     <!-- Search form -->
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name", class: "form-control border-radius" %>
+      <%= text_field_tag :name, params[:name], placeholder: "Search by name", class: "form-control border-radius" %>
      <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+      <%= link_to "" do%>
+        <i class="fa fa-search search-btn" id="loupe"></i>
+      <% end %>
+        <button type="submit" class="btn search-event" id="search-button"><i class="fa fa-search "></i></button>
+        <%= link_to "" do %>
+          <i class="fa fa-times" id="close"></i>
         <% end %>
+    <% end %>
 
       <!-- Profile picture and dropdown -->
     <div class="navbar-wagon-item">
@@ -31,8 +38,9 @@
       </div>
     </div>
 
+
   <!-- Button Create a new game -->
-  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-game-button btn" %>
+  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
 
   </div>
 

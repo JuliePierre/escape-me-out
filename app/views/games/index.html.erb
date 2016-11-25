@@ -31,7 +31,7 @@
                     <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
                   </div>
                   <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
-                  <span class="card-price">NOT AVAILABLE ON THE GIVEN DATE</span>
+                  <span class="non-availability-message">NOT AVAILABLE ON THE GIVEN DATE</span>
                 </div>
               <% end %>
             <% else %>
@@ -57,7 +57,7 @@
         <%= form_tag(games_path, :method => "get", class: "search-form") do %>
           <div class="row">
           <%= label_tag ":search", "Where?" %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by name or city", class: "form-control border-radius" %></div>
+          <input type="text" name="address" id="search_address" class="form-control border-radius" placeholder="Where ?" value="<%= params[:address] %>"</div>
           <div class="row">
           <%= label_tag "nb_players", "Number of players" %>
           <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %></div>
