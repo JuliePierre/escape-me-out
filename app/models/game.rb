@@ -51,6 +51,7 @@
     bookings = bookings_on(start_datetime.to_date)
 
     closing_time = self.class.hour_to_datetime(GAME_DEFAULT_CLOSING_TIME, start_datetime.to_date)
+    puts closing_time
     possible_durations = (MIN_GAME_DURATION..MAX_GAME_DURATION).to_a.select do |duration|
       game_duration_authorized = true
       bookings.each do |booking|
