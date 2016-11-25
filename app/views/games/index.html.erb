@@ -31,7 +31,7 @@
                     <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
                   </div>
                   <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
-                  <span class="card-price">NOT AVAILABLE ON THE GIVEN DATE</span>
+                  <span class="non-availability-message">NOT AVAILABLE ON THE GIVEN DATE</span>
                 </div>
               <% end %>
             <% else %>
