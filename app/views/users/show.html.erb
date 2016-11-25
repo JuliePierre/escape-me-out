@@ -11,6 +11,8 @@
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
 
+      <!-- CAS 1 : USER && PLAYER -->
+
       <% if @user.player? && @user.host? %>
 
       <div class="tabs">
@@ -96,9 +98,12 @@
           <% end %>
       </div>
 
+
+
+
       <% elsif @user.host? %>
 
-      <!-- HOST only -->
+      <!-- CAS 2 : HOST only -->
 
           <h1 class="text-center">Welcome Host!</h1>
           <br>
@@ -152,9 +157,13 @@
           </div>
         <% end %>
 
+
+
         <% elsif @user.player? %>
 
-        <!-- CUSTOMER only -->
+
+
+        <!-- CAS 3 : CUSTOMER only -->
         <!-- Show all bookings -->
 
         <h1 class="text-center">Welcome Customer!</h1>
