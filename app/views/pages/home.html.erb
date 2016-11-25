@@ -9,13 +9,13 @@
         <input type="text" name="address" id="search_address" class="form-control border-radius" placeholder="Where ?">
         <%= text_field_tag :nb_players, params[:nb_players], placeholder: "Number of players", class: "form-control border-radius" %>
         <%= text_field_tag :date, params[:date], placeholder: "Choose a date", class: "form-control border-radius datepicker" %>
-        <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i>  SEARCH</button>
+        <button type="submit" class="btn banner-wagon-button"><i class="fa fa-search"></i>  SEARCH</button>
     <% end %>
     <br>
     <br>
     <br>
     <br>
     <p>Don't know what you're looking for ?</p>
-    <%= link_to "See all games", games_path, class: "btn btn-danger btn-lg" %>
+    <%= link_to "See all games", games_path, class: "btn banner-wagon-button", id: "large" %>
   </div>
 </div>
