@@ -1,0 +1,22 @@
+.btn-fb {
+  padding: 8px 15px;
+  margin-top: 10px;
+  font-weight: bolder;
+  background-color: #3B5998;
+  text-shadow: none;
+  border-radius: 5%;
+  box-shadow: 0px 0px 1px #2f4777, 0px 1px 1px #2f4777;
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+  user-select: none;
+  border: 0px;
+  outline: 0px;
+  color: white;
+  font-size: 12px;
+  transition-timing-function: 0.3 ease;
+  }
+
+.btn-fb:hover {
+  background-color: #3f6bc1;
+}
