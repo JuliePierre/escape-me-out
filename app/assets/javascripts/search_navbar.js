@@ -7,7 +7,7 @@ $(document).ready(function() {
       $('.search-btn').hide();
       $('.search-event').show('slow');
       $('#close').show('slow');
-      $('.navbar-wagon-right').css('width', '500px')
+      $('.navbar-wagon-right').css('width', '600px')
     });
   }
   if ($('#close').attr("hidden", false)) {

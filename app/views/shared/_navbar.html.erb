@@ -7,25 +7,33 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
+
+
     <!-- Search form -->
     <%= form_tag(games_path, :method => "get", class: "navbar-wagon-search", id: "search-form") do %>
-      <%= text_field_tag :name, params[:name], placeholder: "Search by name", class: "form-control border-radius" %>
-     <button type="submit" class="btn btn-danger"><i class="fa fa-search"></i></button>
+      <%= text_field_tag :name, params[:name], placeholder: "Search by name", class: "form-control border-radius search-event" %>
+     <button type="submit" class="btn search-event" id="search-button"><i class="fa fa-search"></i></button>
       <%= link_to "" do%>
         <i class="fa fa-search search-btn" id="loupe"></i>
       <% end %>
-        <button type="submit" class="btn search-event" id="search-button"><i class="fa fa-search "></i></button>
         <%= link_to "" do %>
           <i class="fa fa-times" id="close"></i>
         <% end %>
     <% end %>
+
+  <%= link_to "All Games", games_path, class:"btn navbar-wagon-button" %>
+
+
+
+  <!-- Button Create a new game -->
+  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
 
       <!-- Profile picture and dropdown -->
     <div class="navbar-wagon-item">
       <div class="dropdown">
         <% if current_user %>
           <% avatar_url = current_user.facebook_picture_url || "http://placehold.it/30x30" %>
-            <%= image_tag avatar_url, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+            <%= image_tag avatar_url, class: "avatar-bordered dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
               <%= link_to "Your profile", user_path(current_user) %>
@@ -37,10 +45,6 @@
         <% end %>
       </div>
     </div>
-
-
-  <!-- Button Create a new game -->
-  <%= link_to "Create a new game", new_game_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
 
   </div>
 
