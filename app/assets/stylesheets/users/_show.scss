@@ -114,9 +114,9 @@
 // !!!!!! TABS !!!!!!
 
 .tabs {
-  background: #999999;
+  background: white;
   display: flex;
-  padding: 10px 10px 0 10px
+  padding: 0px 0px 0px 0px
 }
 .tabs a {
   color: white;
@@ -149,10 +149,10 @@
   padding: 20px 0;
 }
 .tab:first-child {
-  border-radius: 10px 0 0 0;
+  border-radius: 10px 10px 0 0;
 }
 .tab:last-child {
-  border-radius: 0 10px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 .tab.active {
   background: #F4F4F4;
