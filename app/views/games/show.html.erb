@@ -21,6 +21,8 @@
           <div><p>Number of players : from <%= @game.min_players %> to <%= @game.max_players %><br>Price per hour : <%= @game.price_per_hour %> €</p></div>
           <p>Hosted by : <%= link_to @game.user.first_name == "" ? @game.user.email : @game.user.email, user_path(@game.user) %></p>
         </div>
+        <br>
+        <%= link_to "<< Back to search results", games_path(date: params[:date], nb_players: params[:nb_players]) %>
       </div>
 
       <!-- barre à droite : carte + formulaire -->
