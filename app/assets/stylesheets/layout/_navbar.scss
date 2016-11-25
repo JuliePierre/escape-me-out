@@ -38,6 +38,11 @@
   flex: 0 1 auto;
   cursor: pointer;
   padding: 0 20px;
+  margin: 0 -15px;
+}
+
+#signin {
+  margin: 0 5px;
 }
 
 /* Navbar standard link */
@@ -178,7 +183,7 @@
 
 /* Navbar dropdown menu */
 .navbar-wagon-dropdown-menu {
-  z-index: 0;
+  z-index: 1;
   opacity: 1;
   margin-top: 15px;
   box-shadow: 1px 1px 4px #E6E6E6;

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+
   $('.search-event').hide();
   $('#close').hide()
   if ($('.search-event').attr("hidden", true)) {
@@ -18,6 +18,3 @@ $(document).ready(function() {
       $('.search-btn').show('slow');
     });
   }
-});
-
-
