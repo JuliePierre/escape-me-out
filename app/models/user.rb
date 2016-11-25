@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :games
   has_many :bookings
 
-  after_create :send_welcome_email
+  # after_create :send_welcome_email
 
   def host?
     if Game.find_by(user_id: id)
