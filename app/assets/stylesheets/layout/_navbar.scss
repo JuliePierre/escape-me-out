@@ -159,6 +159,10 @@
   border: 1px solid #CCCCCC;
 }
 
+.search-event{
+  visibility: hidden;
+}
+
 #loupe, #close {
   color: #808080;
   text-decoration: none;
@@ -179,6 +183,7 @@
 
 #close {
   margin: 9px 8px 6px 11px;
+  visibility: hidden;
 }
 
 /* Navbar dropdown menu */
