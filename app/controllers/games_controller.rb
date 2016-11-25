@@ -54,6 +54,8 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     game_availabilities_dates = @game.availabilities(@date)
     if game_availabilities_dates
       @availabilities = game_availabilities_dates.map { |x| x.strftime("%H:%M") }
+    else
+      @availabilities = "Sorry dude, no time slot"
     end
     @game_coordinates = [{ lat: @game.latitude, lng: @game.longitude }]
   end
