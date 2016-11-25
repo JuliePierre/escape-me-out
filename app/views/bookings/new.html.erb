@@ -26,7 +26,7 @@
           </tr>
         </table>
 
-        <%= link_to "Edit reservation", game_path(@game, nb_players: params[:nb_players], date: params[:date], duration: params[:duration], time_select: params[:time_select]), class: "btn btn-danger" %>
+        <%= link_to "Edit reservation", game_path(@game, nb_players: params[:nb_players], date: params[:date], duration: params[:duration], time_select: params[:time_select]), class: "btn booking-wagon-button" %>
 
         <h3> Payment informations </h3>
 
@@ -42,7 +42,7 @@
           <%= f.hidden_field :nb_players, value: params[:nb_players].to_i %>
           <%= f.hidden_field :starts_at, value: @starts_at %>
           <%= f.hidden_field :duration, value: params[:duration].to_i %>
-          <%= f.submit "Confirm and pay", class: 'btn btn-danger' %>
+          <%= f.submit "Confirm and pay", class: 'btn booking-wagon-button' %>
         <% end %>
       </div>
   </div>
