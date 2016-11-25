@@ -1,11 +1,14 @@
 // !!!!!! PRODUCT HUNT-TYPE LIST !!!!!!
 
 .product {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 20px;
   border-radius: 3px;
+  background: white;
   transition: all 0.15s ease;
+  margin-bottom: 10px;
   a {
     text-decoration: none;
   }
@@ -85,7 +88,7 @@
 
 /* Hover effects */
 .product:hover {
-  background: #f7f7fa;
+  background: #B7F4BD;
   cursor: pointer;
 }
 .product-upvote:hover, .product-upvote.product-upvote-upvoted {
@@ -102,12 +105,17 @@
 // !!!!!! TABS !!!!!!
 
 .tabs {
-  background: #53443F;
+  background: #999999;
   display: flex;
   padding: 10px 10px 0 10px
 }
 .tabs a {
   color: white;
+  text-decoration: none;
+}
+
+.tabs a:active {
+  text-decoration: none;
 }
 .tabs a:hover {
   cursor: pointer;
@@ -122,10 +130,12 @@
 .tabs p {
   opacity: 0.5;
   margin-bottom: 0;
+  color: #333333;
+  font-weight: bold;
 }
 .tab {
-  background: #756A66;
-  flex: 0 0 25%;
+  background: #6CF68C;
+  flex: 0 0 50%;
   text-align: center;
   padding: 20px 0;
 }
@@ -136,6 +146,86 @@
   border-radius: 0 10px 0 0;
 }
 .tab.active {
-  background: white;
+  background: #F4F4F4;
   color: black;
+}
+
+.user-content {
+  background: #F6F6F6;
+  padding: 25px;
+  .row {
+    margin: 0;
+  }
+}
+
+.user-avatar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.host_content {
+  background: #F4F4F4;
+  padding: 30px;
+  h3 {
+    margin-top: 0px;
+  }
+}
+
+.player_content {
+  background: #F4F4F4;
+  padding: 30px;
+  h3 {
+    margin-top: 0px;
+  }
+}
+
+.only_player_content {
+  background: #F4F4F4;
+  padding: 30px;
+  min-height: 371px;
+  h3 {
+    margin-top: 0px;
+  }
+}
+
+.only_host_content {
+  background: #F4F4F4;
+  padding: 30px;
+  min-height: 371px;
+  h3 {
+    margin-top: 0px;
+  }
+}
+
+.game-container {
+width: 100%;
+padding: 0px;
+}
+
+.status-accepted {
+  color: white;
+  background: #4CAF62;
+  padding: 10px;
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+}
+
+.status-pending {
+  color: white;
+  background: #E19646;
+  padding: 10px;
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+}
+
+.status-declined {
+  color: white;
+  background: #E13419;
+  padding: 10px;
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
 }
