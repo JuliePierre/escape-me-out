@@ -29,6 +29,15 @@
   margin-bottom: 0;
 }
 
+.product-link {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0;
+}
+
 /* Product image */
 .product-image {
   border-radius: 10px;
@@ -88,7 +97,7 @@
 
 /* Hover effects */
 .product:hover {
-  background: #B7F4BD;
+  background: #B5FFC1;
   cursor: pointer;
 }
 .product-upvote:hover, .product-upvote.product-upvote-upvoted {
@@ -134,7 +143,7 @@
   font-weight: bold;
 }
 .tab {
-  background: #6CF68C;
+  background: #B5FFC1;
   flex: 0 0 50%;
   text-align: center;
   padding: 20px 0;

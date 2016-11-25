@@ -51,6 +51,7 @@
                 <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(booking, :booking_id => booking.id, :do => "accept"), method: :patch %></li>
                 <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(booking, :booking_id => booking.id, :do => "decline"), method: :patch %></li>
               </ul>
+              <%= link_to "", game_path(game), class: "product-link" %>
             </div>
           <% end %>
         <% end %>
@@ -99,6 +100,7 @@
                       <% end %>
                     <% end %>
                   </div>
+                  <%= link_to "", game_path(game), class: "product-link" %>
                 </div>
               <% else %>
                 <p>You don't have any reservation for <%= game.name %>. It does not have much success</p>
@@ -125,6 +127,7 @@
                   <span class="status-declined">DECLINED</span>
                 <% end %>
               </div>
+              <%= link_to "", game_path(booking.game), class: "product-link" %>
             </div>
           <% end %>
       </div>
@@ -147,6 +150,7 @@
                   <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(booking, :booking_id => booking.id, :do => "accept"), method: :patch %></li>
                   <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(booking, :booking_id => booking.id, :do => "decline"), method: :patch %></li>
                 </ul>
+                <%= link_to "", game_path(booking.game_id), class: "product-link" %>
               </div>
             <% end %>
           <% end %>
@@ -190,6 +194,7 @@
                       <% end %>
                     <% end %>
                   </div>
+                  <%= link_to "", game_path(game), class: "product-link" %>
                 </div>
               <% else %>
                 <p>You don't have any reservation for <%= game.name %>. It does not have much success</p>
@@ -218,6 +223,7 @@
                   <span class="status-declined">DECLINED</span>
                 <% end %>
               </div>
+              <%= link_to "", game_path(game), class: "product-link" %>
             </div>
           <% end %>
       </div>
