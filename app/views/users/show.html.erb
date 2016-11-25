@@ -1,36 +1,45 @@
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h1><%= @user.email %></h1>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="container">
-  <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
+  <div class="profile-container padded">
+    <div class="row">
 
-      <!-- CAS 1 : USER && PLAYER -->
-
-      <% if @user.player? && @user.host? %>
-
-      <div class="tabs">
-        <a class="tab active" id="host" href="#">
-          <p>Host</p>
-        </a>
-        <a class="tab" id="player" href="#">
-          <p>Player</p>
-        </a>
+      <!-- USER PROFILE -->
+      <div class="col-sm-4">
+        <div class="user-content">
+          <div class="row">
+            <% avatar_url = current_user.facebook_picture_url || "http://placehold.it/30x30" %>
+            <%= image_tag avatar_url, class: "avatar-extra-large " %>
+          </div>
+          <div class="row">
+            <h1>Information</h1>
+            <br>
+            <p>Email: <%= @user.email %></p>
+            <p>First name: <%= @user.first_name %></p>
+            <p>Last name: <%= @user.last_name %></p>
+            <%= link_to "Edit profile" %>
+          </div>
+        </div>
       </div>
+
+
+      <!-- USER BOOKINGS -->
+      <div class="col-sm-8">
+        <% if @user.player? && @user.host? %>
+          <div class="tabs">
+            <a class="tab active" id="host" href="#">
+              <p>YOU OWN...</p>
+            </a>
+            <a class="tab" id="player" href="#">
+              <p>YOU PLAY...</p>
+            </a>
+          </div>
+
+      <!-- INFORMATIONS RELATIVES AU GAMES ET AUX RESERVATIONS EN COURS-->
+
+      <!-- PENDING BOOKINGS-->
 
       <div class="host_content">
-        <!-- Accept/Decline -->
         <% unless @pending_bookings == [] %>
-          <h3>Your pending bookings:</h3>
-          <br>
-          <br>
-
+          <h3>You have pending bookings</h3>
           <% @pending_bookings.each do |booking| %>
             <div class="product">
               <div class='product-body'>
@@ -45,150 +54,173 @@
             </div>
           <% end %>
         <% end %>
-          <br>
-          <br>
 
-            <!-- Show all games and bookings -->
+          <!-- GAMES -->
+
           <h3>Your games</h3>
-          <br>
-          <br>
-        <% @games_host.each do |game| %>
-          <div class="product">
-            <div class='product-body'>
-              <h3><%= link_to game.name, game_path(game) %></h3>
-              <% bookings_host = Booking.where(game_id: game.id) %>
-              <% bookings_host.each do |booking_host| %>
-              <% booking_time_host = booking_host.starts_at + 1.hour %>
-                <% if booking_host.accepted == true %>
-                  <p>Accepted Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                <% elsif booking_host.accepted == false %>
-                  <p>Declined Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                <% end %>
-              <% end %>
+          <div class="container game-container">
+            <div class="row">
+            <% @games_host.each do |game| %>
+              <div class="col-sm-6">
+                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+                  <div class="card-description">
+                    <h2><%= game.name %></h2>
+                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
+                  </div>
+                  <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
+                  <span class="card-price"><%= game.price_per_hour %>€</span>
+                </div>
+              </div>
+            <% end %>
             </div>
-            <ul class="list-inline product-controls hidden-sm hidden-xs">
-              <li><a href=""><i class="fa fa-heart"></i></a></li>
-              <li><a href=""><i class="fa fa-share"></i></a></li>
-              <li><a href=""><i class="fa fa-star"></i></a></li>
-            </ul>
           </div>
-        <% end %>
+
+          <!-- RESERVATIONS -->
+
+          <br>
+          <h3>All reservations</h3>
+              <% @games_host.each do |game| %>
+              <% bookings_host = Booking.where(game_id: game.id) %>
+              <% if bookings_host != [] %>
+                <div class="product">
+                  <div class='product-body'>
+                    <h3><%= link_to game.name, game_path(game) %></h3>
+                    <% bookings_host.each do |booking_host| %>
+                    <% booking_time_host = booking_host.starts_at + 1.hour %>
+                      <% if booking_host.accepted == true %>
+                        <p>Accepted Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                      <% elsif booking_host.accepted == false %>
+                        <p>Declined Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <p>You don't have any reservation for <%= game.name %>. It does not have much success</p>
+              <% end %>
+            <% end %>
       </div>
+
+      <!-- INFORMATIONS RELATIVES AU JOUEUR -->
 
       <div class="player_content">
-      <h3>Your bookings as a player:</h3>
+        <h3>Your bookings as a player:</h3>
           <% @booking_customer.each do |booking| %>
             <div class="product">
               <div class='product-body'>
                 <h3><%= link_to booking.game.name, game_path(booking.game) %></h3>
                 <% if booking.accepted == true %>
-                  <p>Accepted Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-accepted">ACCEPTED</span>
                 <% elsif booking.accepted.nil? %>
-                  <p>Pending Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-pending">PENDING</span>
                 <% elsif booking.accepted == false %>
-                  <p>Declined Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-declined">DECLINED</span>
                 <% end %>
               </div>
-              <ul class="list-inline product-controls hidden-sm hidden-xs">
-                <li><a href=""><i class="fa fa-heart"></i></a></li>
-                <li><a href=""><i class="fa fa-share"></i></a></li>
-                <li><a href=""><i class="fa fa-star"></i></a></li>
-              </ul>
             </div>
           <% end %>
       </div>
 
-
-
-
+      <!-- 2 ème cas : host seulement -->
       <% elsif @user.host? %>
 
-      <!-- CAS 2 : HOST only -->
-
-          <h1 class="text-center">Welcome Host!</h1>
-          <br>
-
-          <!-- Accept/Decline -->
-        <% unless @pending_bookings == [] %>
-          <h3>Your pending bookings:</h3>
-          <br>
-          <br>
-
-          <% @pending_bookings.each do |booking| %>
-            <div class="product">
-              <div class='product-body'>
-                <h3><%= link_to booking.game.name, game_path(booking.game_id) %></h3>
-                  <% booking_time = booking.starts_at + 1.hour %>
-                <p><%= booking_time.strftime("On %A, %d %b %Y %l:%M %p") %>, by <%= link_to booking.user.email, user_path(booking.user_id) %></p>
+        <!-- SES INFOS -->
+        <div class="only_host_content">
+          <% unless @pending_bookings == [] %>
+            <h3>You have pending bookings</h3>
+            <% @pending_bookings.each do |booking| %>
+              <div class="product">
+                <div class='product-body'>
+                  <h3><%= link_to booking.game.name, game_path(booking.game_id) %></h3>
+                    <% booking_time = booking.starts_at + 1.hour %>
+                  <p><%= booking_time.strftime("On %A, %d %b %Y %l:%M %p") %>, by <%= link_to booking.user.email, user_path(booking.user_id) %></p>
+                </div>
+                <ul class ="list-inline buttons hidden-sm hidden-xs">
+                  <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(booking, :booking_id => booking.id, :do => "accept"), method: :patch %></li>
+                  <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(booking, :booking_id => booking.id, :do => "decline"), method: :patch %></li>
+                </ul>
               </div>
-              <ul class ="list-inline buttons hidden-sm hidden-xs">
-                <li class ="btn btn-success" ><%= link_to "Accept",  game_booking_path(booking, :booking_id => booking.id, :do => "accept"), method: :patch %></li>
-                <li class ="btn btn-danger" ><%= link_to "Decline", game_booking_path(booking, :booking_id => booking.id, :do => "decline"), method: :patch %></li>
-              </ul>
-            </div>
+            <% end %>
           <% end %>
-        <% end %>
-          <br>
-          <br>
 
-            <!-- Show all games and bookings -->
+          <!-- GAMES -->
+
           <h3>Your games</h3>
-          <br>
-          <br>
-        <% @games_host.each do |game| %>
-          <div class="product">
-            <div class='product-body'>
-              <h3><%= link_to game.name, game_path(game) %></h3>
-              <% bookings_host = Booking.where(game_id: game.id) %>
-              <% bookings_host.each do |booking_host| %>
-              <% booking_time_host = booking_host.starts_at + 1.hour %>
-                <% if booking_host.accepted == true %>
-                  <p>Accepted Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                <% elsif booking_host.accepted == false %>
-                  <p>Declined Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
-                <% end %>
-              <% end %>
+          <div class="container game-container">
+            <div class="row">
+            <% @games_host.each do |game| %>
+              <div class="col-sm-6">
+                <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cl_image_path game_url, height: 300, width: 400, crop: :fill %>')">
+                  <div class="card-description">
+                    <h2><%= game.name %></h2>
+                    <p>Nb of players : <%= game.min_players %> - <%= game.max_players %></p>
+                  </div>
+                  <%= link_to "", game_path(game, nb_players: params[:nb_players], date: params[:date]), class: "card-link" %>
+                  <span class="card-price"><%= game.price_per_hour %>€</span>
+                </div>
+              </div>
+            <% end %>
             </div>
-            <ul class="list-inline product-controls hidden-sm hidden-xs">
-              <li><a href=""><i class="fa fa-heart"></i></a></li>
-              <li><a href=""><i class="fa fa-share"></i></a></li>
-              <li><a href=""><i class="fa fa-star"></i></a></li>
-            </ul>
           </div>
-        <% end %>
 
+          <!-- RESERVATIONS -->
 
+          <br>
+          <h3>All reservations</h3>
+              <% @games_host.each do |game| %>
+              <% bookings_host = Booking.where(game_id: game.id) %>
+              <% if bookings_host != [] %>
+                <div class="product">
+                  <div class='product-body'>
+                    <h3><%= link_to game.name, game_path(game) %></h3>
+                    <% bookings_host.each do |booking_host| %>
+                    <% booking_time_host = booking_host.starts_at + 1.hour %>
+                      <% if booking_host.accepted == true %>
+                        <p>Accepted Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                      <% elsif booking_host.accepted == false %>
+                        <p>Declined Booking: <%= booking_time_host.strftime("%A, %d %b %Y %l:%M %p") %></p>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <p>You don't have any reservation for <%= game.name %>. It does not have much success</p>
+              <% end %>
+            <% end %>
+        </div>
 
-        <% elsif @user.player? %>
+      <!-- 3 ème cas : player seulement -->
+      <% elsif @user.player? %>
 
-
-
-        <!-- CAS 3 : CUSTOMER only -->
-        <!-- Show all bookings -->
-
-        <h1 class="text-center">Welcome Customer!</h1>
+        <!-- SES INFOS -->
+        <div class="only_player_content">
+        <h3>Your bookings as a player:</h3>
           <% @booking_customer.each do |booking| %>
             <div class="product">
               <div class='product-body'>
                 <h3><%= link_to booking.game.name, game_path(booking.game) %></h3>
                 <% if booking.accepted == true %>
-                  <p>Accepted Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-accepted">ACCEPTED</span>
                 <% elsif booking.accepted.nil? %>
-                  <p>Pending Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-pending">PENDING</span>
                 <% elsif booking.accepted == false %>
-                  <p>Declined Booking: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <p>Booking Infos: <%= (booking.starts_at + 1.hour).strftime("%A, %d %b %Y %l:%M %p") %></p>
+                  <span class="status-declined">DECLINED</span>
                 <% end %>
               </div>
-              <ul class="list-inline product-controls hidden-sm hidden-xs">
-                <li><a href=""><i class="fa fa-heart"></i></a></li>
-                <li><a href=""><i class="fa fa-share"></i></a></li>
-                <li><a href=""><i class="fa fa-star"></i></a></li>
-              </ul>
             </div>
           <% end %>
+      </div>
 
       <% end %>
+      </div>
+
+    <!-- FIN DE LA ROW CONTENANT L'ENSEMBLE -->
     </div>
   </div>
 </div>
-
