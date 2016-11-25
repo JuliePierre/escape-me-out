@@ -1,20 +1,20 @@
-$(document).ready(function() {
+// $(document).ready(function() {
 
-  $('.card').on('mouseover', function(event) {
-    console.log('OK go to next step');
-  });
+//   $('.card').on('mouseover', function(event) {
+//     console.log('OK go to next step');
+//   });
 
 
-  // marker.addListener('mouseover', function() {
-  //     infowindow.open(map, this);
-  // });
+//   // marker.addListener('mouseover', function() {
+//   //     infowindow.open(map, this);
+//   // });
 
-  //   // assuming you also want to hide the infowindow when user mouses-out
-  // marker.addListener('mouseout', function() {
-  //       infowindow.close();
-  // });
+//   //   // assuming you also want to hide the infowindow when user mouses-out
+//   // marker.addListener('mouseout', function() {
+//   //       infowindow.close();
+//   // });
 
-});
+// });
 
 //  var ourMarker = getMarker(title)
 //  google.maps.event.trigger(ourMarker, 'click');
