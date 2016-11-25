@@ -84,7 +84,7 @@ before_action :find_game, only: [:show, :edit, :update, :destroy]
     my_date = Date.parse(params[:date])
     my_time = Time.parse(params[:time])
     my_game = Game.find(params[:id])
-    dt = DateTime.new(my_date.year, my_date.month, my_date.day, my_time.hour, my_time.min, my_time.sec, my_time.zone)
+    dt = DateTime.new(my_date.year, my_date.month, my_date.day, my_time.hour, my_time.min, my_time.sec, "CET")
     render :json => my_game.possible_durations(dt)
   end
 
